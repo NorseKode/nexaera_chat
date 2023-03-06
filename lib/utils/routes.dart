@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../blocs/authentication/auth.dart';
+import '../presentation/screens/docs.dart';
 import '../presentation/screens/home.dart';
 import '../presentation/screens/signin_page.dart';
 import '../presentation/screens/signup_page.dart';
+import '../presentation/screens/workshop.dart';
 
 class AppRouter {
   final AuthProvider auth;
@@ -20,6 +22,22 @@ class AppRouter {
         pageBuilder: (context, state) => NoTransitionPage<void>(
           key: state.pageKey,
           child: const HomeScreen(),
+        ),
+      ),
+      GoRoute(
+        name: 'workshop',
+        path: '/workshop',
+        pageBuilder: (context, state) => NoTransitionPage<void>(
+          key: state.pageKey,
+          child: const WorkshopScreen(),
+        ),
+      ),
+      GoRoute(
+        name: 'docs',
+        path: '/docs',
+        pageBuilder: (context, state) => NoTransitionPage<void>(
+          key: state.pageKey,
+          child: const DocsScreen(),
         ),
       ),
       GoRoute(

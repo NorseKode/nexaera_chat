@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:nexaera_chat/presentation/components/page_header.dart';
 import 'package:unicons/unicons.dart';
 
 import '../components/custom_app_bar.dart';
 import '../components/custom_text_field.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class WorkshopScreen extends StatelessWidget {
+  const WorkshopScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +22,6 @@ class HomeScreen extends StatelessWidget {
                         width: double.infinity,
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: []))))));
+                            children: const [Headline(title: 'Workshop')]))))));
   }
 }

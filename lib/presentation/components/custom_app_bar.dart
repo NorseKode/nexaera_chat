@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nexaera_chat/presentation/constants/nav_items.dart';
 import 'package:unicons/unicons.dart';
 
 import '../../blocs/authentication/auth.dart';
@@ -26,8 +27,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           children: [
             _logo(context),
             const SizedBox(width: 48), //48
-            Expanded(child: _menu(context)),
-            const SizedBox(width: 24),
+            Expanded(child: _nav(context)),
+            const SizedBox(width: 48),
             _profile(context),
           ],
         ));
@@ -39,14 +40,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         onTap: () => context.goNamed('default'),
         child: Row(
           children: [
-            Icon(UniconsLine.analytics,
-                size: 20, color: null //_theme.colorScheme.primary,
-                ),
-            SizedBox(width: 16),
+            Icon(UniconsLine.tag_alt,
+                size: 20, color: _theme.colorScheme.primary),
+            const SizedBox(width: 16),
             Text("NEXÆRA",
                 style: _theme.textTheme.bodyMedium!.copyWith(
                   fontFamily: 'SpaceGrotesk',
-                  letterSpacing: 0.5,
+                  letterSpacing: 4,
                   fontWeight: FontWeight.w600,
                   fontSize: 20,
                 )),
@@ -54,20 +54,20 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         ));
   }
 
-  Widget _menu(BuildContext context) {
+  Widget _nav(BuildContext context) {
     List<Widget> menuItems = [
-      MenuItem(
-          title: 'Start',
+      NavigationTextItem(
+          title: NavItem.start.displayName,
           route: 'default',
           isSelected: isSelected(context, '/')),
-      MenuItem(
-          title: 'Workshop',
-          route: 'default',
-          isSelected: isSelected(context, '/')),
-      MenuItem(
-          title: 'Docs',
-          route: 'default',
-          isSelected: isSelected(context, '/')),
+      NavigationTextItem(
+          title: NavItem.workshop.displayName,
+          route: 'workshop',
+          isSelected: isSelected(context, '/workshop')),
+      NavigationTextItem(
+          title: NavItem.docs.displayName,
+          route: 'docs',
+          isSelected: isSelected(context, '/docs')),
     ];
 
     return Wrap(spacing: 32, children: menuItems);
@@ -95,8 +95,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(64.0);
 }
 
-class MenuItem extends StatelessWidget {
-  const MenuItem(
+class NavigationTextItem extends StatelessWidget {
+  const NavigationTextItem(
       {super.key,
       required this.title,
       required this.route,
@@ -115,8 +115,8 @@ class MenuItem extends StatelessWidget {
         child: Text(title,
             style: theme.textTheme.bodyMedium!.copyWith(
                 fontWeight: FontWeight.w400,
-                fontFamily: 'SpaceGrotesk',
                 fontSize: 16,
-                color: isSelected ? null : Color(0xFF9D9D9D))));
+                color:
+                    isSelected ? null : theme.colorScheme.onSurfaceVariant)));
   }
 }
