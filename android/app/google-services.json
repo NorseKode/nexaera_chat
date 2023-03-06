@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "44836736616",
+    "project_id": "nexaera",
+    "storage_bucket": "nexaera.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:44836736616:android:b9a7e8050be0b99b0f75dd",
+        "android_client_info": {
+          "package_name": "com.example.nexaera_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "44836736616-djl4jsju36557rr96ggve30san8nlj61.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByy7tXenBHF-f3Wgqcxcof0BVBw-MfPD8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "44836736616-djl4jsju36557rr96ggve30san8nlj61.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "44836736616-9botmptirpfcqqs72cmd89aq3gjnifg4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.nexaeraChat"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

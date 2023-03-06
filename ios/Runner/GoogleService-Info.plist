@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>44836736616-9botmptirpfcqqs72cmd89aq3gjnifg4.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.44836736616-9botmptirpfcqqs72cmd89aq3gjnifg4</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCGtgW-MXLGXRLuPPJX4-lQcrpDa1sPPqg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>44836736616</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.nexaeraChat</string>
+	<key>PROJECT_ID</key>
+	<string>nexaera</string>
+	<key>STORAGE_BUCKET</key>
+	<string>nexaera.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:44836736616:ios:35f07b1d69e2e8ea0f75dd</string>
+</dict>
+</plist>
