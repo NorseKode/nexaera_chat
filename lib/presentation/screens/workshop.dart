@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nexaera_chat/blocs/domain/domain_bloc.dart';
 import 'package:nexaera_chat/data/repositories/domain_repository.dart';
 import 'package:nexaera_chat/presentation/components/custom_drop_down.dart';
 import 'package:nexaera_chat/presentation/components/page_header.dart';
@@ -29,16 +30,34 @@ class WorkshopScreen extends StatelessWidget {
                             children: [
                               const Headline(title: 'Workshop'),
                               const SizedBox(height: 32),
+                              BlocBuilder<DomainBloc, DomainState>(
+                                  builder: (context, state) {
+                                if (state is DomainListLoaded) {
+                                  return _domainDropDown(
+                                      state.domainList,
+                                      state.selectedDomain,
+                                      (id) => context
+                                          .read<DomainBloc>()
+                                          .add(DomainSelected(id)));
+                                } else {
+                                  context
+                                      .read<DomainBloc>()
+                                      .add(FetchDomainList());
+                                  return const CircularProgressIndicator();
+                                }
+                              })
                             ]))))));
   }
 
-  Widget _domainDropDown(List<DomainModel> domains) {
+  Widget _domainDropDown(List<DomainModel> domains, String? selected,
+      Function(dynamic) onSelected) {
     return CustomDropDown(
+      selected: selected ?? domains.elementAt(0).uid!,
       items: List.generate(domains.length, (index) {
         var domain = domains.elementAt(index);
         return CustomDropdownItem(value: domain.uid, label: domain.domain);
       }),
-      onSelected: (value) {},
+      onSelected: onSelected,
     );
   }
 }

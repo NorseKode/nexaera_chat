@@ -3,9 +3,13 @@ import 'package:unicons/unicons.dart';
 
 class CustomDropDown extends StatelessWidget {
   const CustomDropDown(
-      {super.key, required this.items, required this.onSelected});
+      {super.key,
+      required this.items,
+      required this.onSelected,
+      required this.selected});
 
   final List<DropdownMenuEntry> items;
+  final String selected;
   final Function(dynamic) onSelected;
 
   @override
@@ -13,7 +17,8 @@ class CustomDropDown extends StatelessWidget {
     ThemeData theme = Theme.of(context);
 
     return DropdownMenu(
-      enableFilter: true,
+      enableFilter: false,
+      initialSelection: selected,
       dropdownMenuEntries: items,
       onSelected: onSelected,
       trailingIcon: const Icon(

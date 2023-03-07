@@ -7,9 +7,13 @@ class DomainService {
   FirebaseFirestore db = FirebaseFirestore.instance;
 
   Stream<List<DomainModel>> domainStream() {
-    return db.collection("domains").snapshots().map((snapShot) => snapShot.docs
-        .map((doc) => DomainModel.fromDocumentSnapshot(doc))
-        .toList());
+    return db
+        .collection("domains")
+        .snapshots()
+        .map((snapShot) => snapShot.docs
+            .map((doc) => DomainModel.fromDocumentSnapshot(doc))
+            .toList())
+        .asBroadcastStream();
   }
 
   Future<DomainModel> getDomainById(String id) async {
