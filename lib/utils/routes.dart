@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../blocs/authentication/auth.dart';
+import '../presentation/screens/chat.dart';
 import '../presentation/screens/docs.dart';
 import '../presentation/screens/home.dart';
 import '../presentation/screens/signin_page.dart';
@@ -17,7 +18,7 @@ class AppRouter {
   late final router = GoRouter(
     routes: [
       GoRoute(
-        name: 'default',
+        name: 'start',
         path: '/',
         pageBuilder: (context, state) => NoTransitionPage<void>(
           key: state.pageKey,
@@ -30,6 +31,14 @@ class AppRouter {
         pageBuilder: (context, state) => NoTransitionPage<void>(
           key: state.pageKey,
           child: const WorkshopScreen(),
+        ),
+      ),
+      GoRoute(
+        name: 'chat',
+        path: '/chat',
+        pageBuilder: (context, state) => NoTransitionPage<void>(
+          key: state.pageKey,
+          child: const ChatScreen(),
         ),
       ),
       GoRoute(
