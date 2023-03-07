@@ -18,6 +18,7 @@ class CustomDropDown extends StatelessWidget {
 
     return DropdownMenu(
       enableFilter: false,
+      enableSearch: false,
       initialSelection: selected,
       dropdownMenuEntries: items,
       onSelected: onSelected,
@@ -25,7 +26,6 @@ class CustomDropDown extends StatelessWidget {
         UniconsLine.angle_down,
         size: 20,
       ),
-      menuStyle: MenuStyle(),
       inputDecorationTheme: InputDecorationTheme(
           isDense: true,
           isCollapsed: true,

@@ -7,7 +7,8 @@ import '../services/domain_service.dart';
 class DomainRepository {
   DomainService service = DomainService();
 
-  Stream<List<DomainModel>> domainStream() => service.domainStream();
+  late final Stream<List<DomainModel>> domainStream =
+      service.domainStream().asBroadcastStream();
 
   Future<DomainModel> getDomainById(String id) {
     try {

@@ -13,8 +13,11 @@ import '../components/custom_text_field.dart';
 class WorkshopScreen extends StatelessWidget {
   WorkshopScreen({super.key});
 
+  late ThemeData _theme;
+
   @override
   Widget build(BuildContext context) {
+    _theme = Theme.of(context);
     return Scaffold(
         appBar: CustomAppBar(),
         body: SingleChildScrollView(
@@ -33,26 +36,68 @@ class WorkshopScreen extends StatelessWidget {
                               BlocBuilder<DomainBloc, DomainState>(
                                   builder: (context, state) {
                                 if (state is DomainListLoaded) {
-                                  return _domainDropDown(
-                                      state.domainList,
-                                      state.selectedDomain,
-                                      (id) => context
-                                          .read<DomainBloc>()
-                                          .add(DomainSelected(id)));
+                                  if (state.selectedDomain == null) {
+                                    context.read<DomainBloc>().add(
+                                        DomainSelected(state.domainList
+                                            .elementAt(0)
+                                            .uid!));
+                                    return const CircularProgressIndicator();
+                                  }
+                                  return Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      _domainDropDown(
+                                          state.domainList,
+                                          state.selectedDomain!,
+                                          (id) => state.selectedDomain == id
+                                              ? null
+                                              : context
+                                                  .read<DomainBloc>()
+                                                  .add(DomainSelected(id))),
+                                      const SizedBox(height: 32),
+                                      Text(
+                                          'Detailed view of: ${state.selectedDomain!}')
+                                    ],
+                                  );
                                 } else {
                                   context
                                       .read<DomainBloc>()
                                       .add(FetchDomainList());
                                   return const CircularProgressIndicator();
                                 }
-                              })
+                              }),
                             ]))))));
   }
 
-  Widget _domainDropDown(List<DomainModel> domains, String? selected,
+  // Widget _domainList(List<DomainModel> domains, String? selected,
+  //     Function(dynamic) onSelected) {
+  //   return Container(
+  //     width: 200,
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: List.generate(
+  //           domains.length,
+  //           (index) => GestureDetector(
+  //                 behavior: HitTestBehavior.translucent,
+  //                 onTap: () => onSelected(domains.elementAt(index).uid),
+  //                 child: Text(
+  //                   domains.elementAt(index).domain,
+  //                   style: TextStyle(
+  //                       color: domains.elementAt(index).uid == selected
+  //                           ? _theme.colorScheme.primary
+  //                           : null),
+  //                 ),
+  //               )),
+  //     ),
+  //   );
+  // }
+
+  //Doesn't update unless you delete the input of the menu
+  Widget _domainDropDown(List<DomainModel> domains, String selected,
       Function(dynamic) onSelected) {
     return CustomDropDown(
-      selected: selected ?? domains.elementAt(0).uid!,
+      selected: selected,
       items: List.generate(domains.length, (index) {
         var domain = domains.elementAt(index);
         return CustomDropdownItem(value: domain.uid, label: domain.domain);
