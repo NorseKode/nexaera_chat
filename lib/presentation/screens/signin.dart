@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nexaera_chat/presentation/components/custom_text_field.dart';
 
 import '../../blocs/authentication/auth.dart';
 import '../../blocs/sign_in/sign_in_bloc.dart';
@@ -43,24 +44,22 @@ class SignInScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            'Login to your account',
+                            'Log in to your account',
                             style: theme.textTheme.headlineSmall!.copyWith(
                               fontWeight: FontWeight.w700,
                             ),
                           ),
                           const SizedBox(height: 35),
-                          TextFormField(
-                            decoration: const InputDecoration(
-                                labelText: 'Email address'),
-                            controller: emailController,
-                            keyboardType: TextInputType.emailAddress,
-                          ),
+                          CustomTextField(
+                              hint: 'Email address',
+                              controller: emailController,
+                              keyboardType: TextInputType.emailAddress),
                           const SizedBox(height: 20),
-                          TextFormField(
-                            decoration:
-                                const InputDecoration(labelText: 'Password'),
-                            obscureText: true,
+                          CustomTextField(
+                            hint: 'Password',
                             controller: passwordController,
+                            obscureText: true,
+                            onSubmitted: (e) => context.go('/signup'),
                           ),
                           const SizedBox(height: 25),
                           Row(
@@ -83,7 +82,7 @@ class SignInScreen extends StatelessWidget {
                                     passwordController.text));
                               }
                             },
-                            child: Text("Login now",
+                            child: Text("Login",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: theme.colorScheme.onPrimary)),

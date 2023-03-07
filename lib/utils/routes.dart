@@ -6,8 +6,9 @@ import '../blocs/authentication/auth.dart';
 import '../presentation/screens/chat.dart';
 import '../presentation/screens/docs.dart';
 import '../presentation/screens/home.dart';
-import '../presentation/screens/signin_page.dart';
-import '../presentation/screens/signup_page.dart';
+import '../presentation/screens/profile.dart';
+import '../presentation/screens/signin.dart';
+import '../presentation/screens/signup.dart';
 import '../presentation/screens/workshop.dart';
 
 class AppRouter {
@@ -30,7 +31,7 @@ class AppRouter {
         path: '/workshop',
         pageBuilder: (context, state) => NoTransitionPage<void>(
           key: state.pageKey,
-          child: const WorkshopScreen(),
+          child: WorkshopScreen(),
         ),
       ),
       GoRoute(
@@ -47,6 +48,14 @@ class AppRouter {
         pageBuilder: (context, state) => NoTransitionPage<void>(
           key: state.pageKey,
           child: const DocsScreen(),
+        ),
+      ),
+      GoRoute(
+        name: 'profile',
+        path: '/profile',
+        pageBuilder: (context, state) => NoTransitionPage<void>(
+          key: state.pageKey,
+          child: const ProfileScreen(),
         ),
       ),
       GoRoute(

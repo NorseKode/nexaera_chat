@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../blocs/authentication/auth.dart';
+import '../components/custom_text_field.dart';
 
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({super.key});
@@ -38,10 +39,10 @@ class SignUpScreen extends StatelessWidget {
                         ),
                         children: [
                           TextSpan(
-                              text: 'Nexæra',
+                              text: 'NEXÆRA',
                               style: theme.textTheme.titleLarge!.copyWith(
                                 color: theme.primaryColor,
-                                fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.w600,
                               )),
                         ],
                       ),
@@ -52,18 +53,19 @@ class SignUpScreen extends StatelessWidget {
                           fontWeight: FontWeight.w700,
                         )),
                     const SizedBox(height: 35),
-                    TextFormField(
-                      decoration:
-                          const InputDecoration(labelText: 'Email address'),
-                      controller: emailController,
-                      keyboardType: TextInputType.emailAddress,
+                    const CustomTextField(
+                      hint: 'Full name',
                     ),
                     const SizedBox(height: 20),
-                    TextFormField(
-                      decoration: const InputDecoration(labelText: 'Password'),
-                      obscureText: true,
-                      controller: passwordController,
-                    ),
+                    CustomTextField(
+                        hint: 'Email address',
+                        controller: emailController,
+                        keyboardType: TextInputType.emailAddress),
+                    const SizedBox(height: 20),
+                    CustomTextField(
+                        hint: 'Password',
+                        controller: passwordController,
+                        obscureText: true),
                     const SizedBox(height: 35),
                     TextButton(
                       style: TextButton.styleFrom(
