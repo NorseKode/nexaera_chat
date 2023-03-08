@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nexaera_chat/blocs/upload_domain/upload_domain_bloc.dart';
 import 'package:nexaera_chat/presentation/components/page_header.dart';
 import 'package:unicons/unicons.dart';
 
@@ -44,13 +46,43 @@ class HomeScreen extends StatelessWidget {
                                       color:
                                           theme.colorScheme.onSurfaceVariant)),
                               const SizedBox(height: 32),
-                              CustomTextField(
-                                hint: 'yourdomain.com',
-                                onSubmitted: (value) => print(value),
-                                prefixIcon: UniconsLine.at,
-                                suffixIcon: UniconsLine.arrow_right,
-                              ),
-                              const SizedBox(height: 32),
+                              BlocBuilder<UploadDomainBloc, UploadDomainState>(
+                                  builder: (context, state) {
+                                return Column(
+                                  children: [
+                                    CustomTextField(
+                                      readOnly: state is ScrapeInProgress,
+                                      hint: 'yourdomain.com',
+                                      onSubmitted: (value) => context
+                                          .read<UploadDomainBloc>()
+                                          .add(UploadDomain(value)),
+                                      prefixIcon: UniconsLine.at,
+                                      suffixIcon: UniconsLine.arrow_right,
+                                    ),
+                                    state is! ScrapeInProgress
+                                        ? Container()
+                                        : Column(
+                                            children: [
+                                              const SizedBox(
+                                                  height: 4,
+                                                  child:
+                                                      LinearProgressIndicator()),
+                                              const SizedBox(height: 12),
+                                              Text(
+                                                  'Status: ${state.status}, ${state.message}')
+                                            ],
+                                          ),
+                                    state is! UploadError
+                                        ? Container()
+                                        : Column(
+                                            children: [
+                                              const SizedBox(height: 16),
+                                              Text('error: ${state.e}'),
+                                            ],
+                                          )
+                                  ],
+                                );
+                              }),
                             ]))))));
   }
 }

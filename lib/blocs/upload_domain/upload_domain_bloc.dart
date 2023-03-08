@@ -12,6 +12,8 @@ class UploadDomainBloc extends Bloc<UploadDomainEvent, UploadDomainState> {
       : super(UploadDomainInitial()) {
     on<UploadDomain>((event, emit) async {
       try {
+        emit(const ScrapeInProgress(123, 'Loading...', ''));
+        Duration(seconds: 4);
         var accessToken = await _auth.user!.getIdToken();
         await emit.forEach(
             _nexaeraRepository.uploadDomain(event.domain, accessToken),

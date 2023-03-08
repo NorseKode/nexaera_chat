@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:nexaera_chat/blocs/authentication/auth.dart';
 import 'package:nexaera_chat/blocs/domain/domain_bloc.dart';
+import 'package:nexaera_chat/blocs/upload_domain/upload_domain_bloc.dart';
+import 'package:nexaera_chat/data/repositories/nexaera_repository.dart';
 import 'package:nexaera_chat/utils/routes.dart';
 import 'package:provider/provider.dart';
 import 'data/repositories/domain_repository.dart';
@@ -24,24 +26,43 @@ Future<void> main() async {
 
   Bloc.observer = MyBlocObserver();
   runApp(MultiProvider(
-      providers: providerList,
+      providers: [
+        ChangeNotifierProvider<AuthProvider>(
+            create: (context) => AuthProvider()),
+        ProxyProvider<AuthProvider, AppRouter>(
+            update: (context, auth, previous) => previous ?? AppRouter(auth)),
+      ],
       child: MultiRepositoryProvider(
-          providers: repositoryList,
-          child:
-              MultiBlocProvider(providers: blocList, child: const MyApp()))));
+          providers: [
+            RepositoryProvider(create: (context) => DomainRepository()),
+            RepositoryProvider(create: (context) => NexaeraRepository())
+          ],
+          child: MultiBlocProvider(providers: [
+            BlocProvider(
+                create: (context) =>
+                    DomainBloc(context.read<DomainRepository>())),
+            BlocProvider(
+                create: (context) => UploadDomainBloc(
+                    context.read<NexaeraRepository>(),
+                    context.read<AuthProvider>())),
+          ], child: const MyApp()))));
 }
 
-final providerList = [
-  ChangeNotifierProvider<AuthProvider>(create: (context) => AuthProvider()),
-  ProxyProvider<AuthProvider, AppRouter>(
-      update: (context, auth, previous) => previous ?? AppRouter(auth)),
-];
+// final providerList = [
+//   ChangeNotifierProvider<AuthProvider>(create: (context) => AuthProvider()),
+//   ProxyProvider<AuthProvider, AppRouter>(
+//       update: (context, auth, previous) => previous ?? AppRouter(auth)),
+// ];
 
-final repositoryList = [
-  RepositoryProvider(create: (context) => DomainRepository()),
-];
+// List<RepositoryProvider> repositoryList = [
+//   RepositoryProvider(create: (context) => DomainRepository()),
+//   RepositoryProvider(create: (context) => NexaeraRepository())
+// ];
 
-final blocList = [
-  BlocProvider(
-      create: (context) => DomainBloc(context.read<DomainRepository>())),
-];
+// List<BlocProvider> blocList = [
+//   BlocProvider(
+//       create: (context) => DomainBloc(context.read<DomainRepository>())),
+//   BlocProvider(
+//       create: (context) => UploadDomainBloc(
+//           context.read<NexaeraRepository>(), context.read<AuthProvider>())),
+// ];

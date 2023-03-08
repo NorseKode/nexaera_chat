@@ -6,6 +6,7 @@ class CustomTextField extends StatelessWidget {
       this.prefixIcon,
       required this.hint,
       this.controller,
+      this.readOnly,
       this.keyboardType,
       this.obscureText,
       this.onSubmitted,
@@ -15,6 +16,7 @@ class CustomTextField extends StatelessWidget {
   final IconData? prefixIcon;
   final IconData? suffixIcon;
   final String hint;
+  final bool? readOnly;
   final TextEditingController? controller;
   final TextInputType? keyboardType;
   final bool? obscureText;
@@ -24,7 +26,10 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
+    var controller = this.controller ?? TextEditingController();
+
     return TextField(
+      readOnly: readOnly ?? false,
       onSubmitted: onSubmitted,
       obscureText: obscureText ?? false,
       keyboardType: keyboardType,
@@ -39,7 +44,7 @@ class CustomTextField extends StatelessWidget {
           suffixIcon: suffixIcon != null
               ? GestureDetector(
                   onTap: () => onSubmitted != null
-                      ? onSubmitted!(controller?.text ?? '')
+                      ? onSubmitted!(controller.text)
                       : null,
                   child: Icon(suffixIcon,
                       size: 18, color: theme.colorScheme.onSurfaceVariant),
