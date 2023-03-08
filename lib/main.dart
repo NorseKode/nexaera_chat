@@ -45,13 +45,3 @@ final blocList = [
   BlocProvider(
       create: (context) => DomainBloc(context.read<DomainRepository>())),
 ];
-
-// ElevatedButton(
-//             onPressed: () async {
-//               var response = await http
-//                   .get(Uri.parse('http://localhost:8000/contacts/all/'));
-//               print(response.body);
-//             },
-//             child: Text('Hit API'),
-//           ),
-

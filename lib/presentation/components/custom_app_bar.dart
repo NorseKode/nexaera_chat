@@ -97,6 +97,7 @@ class NavigationTextItem extends StatelessWidget {
         onTap: () => context.goNamed(navItem.name),
         child: Text(navItem.displayName,
             style: theme.textTheme.bodyMedium!.copyWith(
+                fontFamily: 'SpaceGrotesk',
                 fontWeight: FontWeight.w400,
                 fontSize: 16,
                 color:

@@ -13,16 +13,16 @@ class DomainRepository {
   Future<DomainModel> getDomainById(String id) {
     try {
       return service.getDomainById(id);
-    } on FirebaseAuthException catch (e) {
-      throw FirebaseAuthException(code: e.code, message: e.message);
+    } on Exception catch (_) {
+      rethrow;
     }
   }
 
   Future<List<DomainModel>> getAllDomains() {
     try {
       return service.getAllDomains();
-    } on FirebaseAuthException catch (e) {
-      throw FirebaseAuthException(code: e.code, message: e.message);
+    } on Exception catch (_) {
+      rethrow;
     }
   }
 }
