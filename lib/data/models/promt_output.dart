@@ -6,13 +6,15 @@ class PromptOutputModel {
   Map<String, String> sources;
   Map<String, int> tokenUsage;
   PromptFinishReason finishReason;
+  Map<String, dynamic> status;
 
   PromptOutputModel(
       {required this.sessionId,
       required this.promtOutput,
       required this.sources,
       required this.tokenUsage,
-      required this.finishReason});
+      required this.finishReason,
+      required this.status});
 
   Map<String, dynamic> toMap() {
     return {
@@ -20,7 +22,8 @@ class PromptOutputModel {
       'PromtOutput': promtOutput,
       'sources': sources,
       'tokenUsage': tokenUsage,
-      'finishReason': finishReason
+      'finishReason': finishReason,
+      'status': status
     };
   }
 
@@ -29,5 +32,6 @@ class PromptOutputModel {
         promtOutput = map['PromtOutput'],
         sources = map['sources'],
         tokenUsage = map['tokenUsage'],
-        finishReason = map['finishReason'];
+        finishReason = map['finishReason'],
+        status = map['status'];
 }

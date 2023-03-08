@@ -56,7 +56,7 @@ class DocsScreen extends StatelessWidget {
   Widget _searchField() {
     return const CustomTextField(
       hint: "Search",
-      icon: UniconsLine.search,
+      prefixIcon: UniconsLine.search,
     );
   }
 }

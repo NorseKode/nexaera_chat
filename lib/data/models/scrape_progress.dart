@@ -1,16 +1,24 @@
 import 'dart:io';
 
 class ScrapeProgressModel {
-  HttpStatus status;
+  int statusCode;
+  String message;
   String urlInProgress;
 
-  ScrapeProgressModel({required this.status, required this.urlInProgress});
+  ScrapeProgressModel(
+      {required this.statusCode,
+      required this.message,
+      required this.urlInProgress});
 
   Map<String, dynamic> toMap() {
-    return {'status': status, 'urlInProgress': urlInProgress};
+    return {
+      'status': {'code': statusCode, 'message': message},
+      'urlInProgress': urlInProgress
+    };
   }
 
   ScrapeProgressModel.fromMap(Map<String, dynamic> map)
-      : status = map['status'],
+      : statusCode = map['status']['code'],
+        message = map['status']['message'],
         urlInProgress = map['urlInProgress'];
 }

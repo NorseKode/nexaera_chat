@@ -47,6 +47,8 @@ class HomeScreen extends StatelessWidget {
                               CustomTextField(
                                 hint: 'yourdomain.com',
                                 onSubmitted: (value) => print(value),
+                                prefixIcon: UniconsLine.at,
+                                suffixIcon: UniconsLine.arrow_right,
                               ),
                               const SizedBox(height: 32),
                             ]))))));
