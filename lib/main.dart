@@ -28,23 +28,15 @@ Future<void> main() async {
   );
 
   Bloc.observer = MyBlocObserver();
+  var auth = AuthenticationService();
+  var firestore = FirestoreService();
   runApp(MultiProvider(
       providers: [
-        Provider<AuthenticationService>(
-          create: (_) => AuthenticationService(),
+        ChangeNotifierProvider<AuthProvider>(
+          create: (_) => AuthProvider(auth, firestore),
         ),
-        Provider<FirestoreService>(
-          create: (_) => FirestoreService(),
-        ),
-        ChangeNotifierProxyProvider2<AuthenticationService, FirestoreService,
-                AuthProvider>(
-            create: AuthProvider(),
-            update: (context, auth, firestore, authProvider) {
-              authProvider.setServices(auth, firestore);
-              return authProvider;
-            }),
         ProxyProvider<AuthProvider, AppRouter>(
-            update: (context, auth, appRouter) => appRouter ?? AppRouter(auth)),
+            update: (_, auth, appRouter) => appRouter ?? AppRouter(auth)),
       ],
       child: MultiRepositoryProvider(
           providers: [
