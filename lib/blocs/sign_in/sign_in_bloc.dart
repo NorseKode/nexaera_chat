@@ -9,9 +9,9 @@ part 'sign_in_state.dart';
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
   final AuthProvider _auth;
   SignInBloc(this._auth) : super(SignInInitial()) {
-    on<SigningIn>((event, emit) {
+    on<SigningIn>((event, emit) async {
       emit(SignInLoading());
-      _auth.signIn(event.email, event.password);
+      await _auth.signIn(event.email, event.password);
       emit(SignInInitial());
     });
   }

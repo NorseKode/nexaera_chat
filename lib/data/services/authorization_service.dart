@@ -1,25 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../models/user_model.dart';
-
 class AuthenticationService {
   FirebaseAuth auth = FirebaseAuth.instance;
 
-  Stream<UserModel> retrieveCurrentUser() {
+  Stream<User?> retrieveCurrentUser() {
     return auth.authStateChanges().map((User? user) {
-      if (user != null) {
-        return UserModel(uid: user.uid, email: user.email);
-      } else {
-        return UserModel(uid: "uid");
-      }
+      return user;
     });
   }
 
-  Future<UserCredential?> signUp(UserModel user) async {
+  Future<UserCredential?> signUp(String email, String password) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(
-              email: user.email!, password: user.password!);
+          .createUserWithEmailAndPassword(email: email, password: password);
       verifyEmail();
       return userCredential;
     } on FirebaseAuthException catch (e) {
@@ -27,11 +20,10 @@ class AuthenticationService {
     }
   }
 
-  Future<UserCredential?> signIn(UserModel user) async {
+  Future<UserCredential?> signIn(String email, String password) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(
-              email: user.email!, password: user.password!);
+          .signInWithEmailAndPassword(email: email, password: password);
       return userCredential;
     } on FirebaseAuthException catch (e) {
       throw FirebaseAuthException(code: e.code, message: e.message);

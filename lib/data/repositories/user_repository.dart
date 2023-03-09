@@ -2,11 +2,11 @@ import 'package:nexaera_chat/blocs/authentication/auth.dart';
 import 'package:nexaera_chat/data/models/domain_model.dart';
 import 'package:nexaera_chat/data/services/firestore_service.dart';
 
-class DomainRepository {
+class UserRepository {
   final FirestoreService _firestoreService = FirestoreService();
   final AuthProvider _auth;
 
-  DomainRepository(this._auth);
+  UserRepository(this._auth);
 
   Stream<List<DomainModel>> streamDomains() {
     try {
@@ -25,18 +25,6 @@ class DomainRepository {
       return _firestoreService
           .getDocument('users/${_auth.user!.uid}/domains', id)
           .then((doc) => DomainModel.fromDocumentSnapshot(doc));
-    } on Exception catch (_) {
-      rethrow;
-    }
-  }
-
-  Future<List<DomainModel>> getAllDomains() {
-    try {
-      return _firestoreService
-          .getCollection('users/${_auth.user!.uid}/domains')
-          .then((docs) => docs
-              .map((doc) => DomainModel.fromDocumentSnapshot(doc))
-              .toList());
     } on Exception catch (_) {
       rethrow;
     }

@@ -36,6 +36,11 @@ class WorkshopScreen extends StatelessWidget {
                               BlocBuilder<DomainBloc, DomainState>(
                                   builder: (context, state) {
                                 if (state is DomainListLoaded) {
+                                  if (state.selectedDomain == null &&
+                                      state.domainList.isEmpty) {
+                                    return const Text(
+                                        "You haven't provided a domain or any documents");
+                                  }
                                   if (state.selectedDomain == null) {
                                     context.read<DomainBloc>().add(
                                         DomainSelected(state.domainList

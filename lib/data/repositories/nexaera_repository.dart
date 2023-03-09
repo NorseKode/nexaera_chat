@@ -5,7 +5,6 @@ import '../models/promt_input.dart';
 import '../models/promt_output.dart';
 import '../models/scrape_progress.dart';
 import '../models/user_model.dart';
-import '../services/domain_service.dart';
 import '../services/nexaera_service.dart';
 
 class NexaeraRepository {

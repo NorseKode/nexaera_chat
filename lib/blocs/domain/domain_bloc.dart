@@ -11,7 +11,7 @@ class DomainBloc extends Bloc<DomainEvent, DomainState> {
   final DomainRepository _domainRepository;
   DomainBloc(this._domainRepository) : super(const DomainListLoading()) {
     on<FetchDomainList>((event, emit) async {
-      await emit.forEach(_domainRepository.domainStream,
+      await emit.forEach(_domainRepository.streamDomains(),
           onData: (List<DomainModel> domainList) =>
               DomainListLoaded(domainList, state.selectedDomain));
     });
