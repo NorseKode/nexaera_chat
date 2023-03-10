@@ -4,6 +4,7 @@ class CustomTextField extends StatelessWidget {
   const CustomTextField(
       {super.key,
       this.prefixIcon,
+      this.prefixText,
       required this.hint,
       this.controller,
       this.readOnly,
@@ -14,6 +15,7 @@ class CustomTextField extends StatelessWidget {
       this.suffixIcon});
 
   final IconData? prefixIcon;
+  final String? prefixText;
   final IconData? suffixIcon;
   final String hint;
   final bool? readOnly;
@@ -37,6 +39,7 @@ class CustomTextField extends StatelessWidget {
       textInputAction: textInputAction,
       decoration: InputDecoration(
           isDense: true,
+          prefixText: prefixText,
           prefixIcon: prefixIcon != null
               ? Icon(prefixIcon,
                   size: 18, color: theme.colorScheme.onSurfaceVariant)

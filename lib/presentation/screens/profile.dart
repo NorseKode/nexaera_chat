@@ -12,6 +12,9 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var firstnameController = TextEditingController();
+    var lastnameController = TextEditingController();
+    var emailController = TextEditingController();
     return Scaffold(
         appBar: CustomAppBar(),
         body: SingleChildScrollView(
@@ -27,10 +30,31 @@ class ProfileScreen extends StatelessWidget {
                             children: [
                               const Headline(title: 'Profile'),
                               const SizedBox(height: 32),
+                              CustomTextField(
+                                hint: '',
+                                controller: firstnameController,
+                                prefixText: 'First name',
+                              ),
+                              CustomTextField(
+                                hint: '',
+                                prefixText: 'Last name',
+                                controller: lastnameController,
+                              ),
+                              CustomTextField(
+                                hint: '',
+                                readOnly: true,
+                                prefixText: 'Email',
+                                controller: emailController,
+                              ),
                               ElevatedButton(
                                   onPressed: () =>
                                       context.read<AuthProvider>().signOut(),
-                                  child: Text('Sign Out'))
+                                  child: const Text('Save profile')),
+                              const SizedBox(height: 24),
+                              ElevatedButton(
+                                  onPressed: () =>
+                                      context.read<AuthProvider>().signOut(),
+                                  child: const Text('Sign Out'))
                             ]))))));
   }
 }

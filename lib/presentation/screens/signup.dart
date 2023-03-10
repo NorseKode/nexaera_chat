@@ -53,10 +53,6 @@ class SignUpScreen extends StatelessWidget {
                           fontWeight: FontWeight.w700,
                         )),
                     const SizedBox(height: 35),
-                    const CustomTextField(
-                      hint: 'Full name',
-                    ),
-                    const SizedBox(height: 20),
                     CustomTextField(
                         hint: 'Email address',
                         controller: emailController,
@@ -98,7 +94,10 @@ class SignUpScreen extends StatelessWidget {
 
   void trySignUp() {
     if (formKey.currentState?.validate() ?? false) {
-      _auth.signUp(emailController.text, passwordController.text);
+      _auth.signUp(
+        emailController.text,
+        passwordController.text,
+      );
     }
   }
 }

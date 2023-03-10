@@ -4,7 +4,7 @@ class AuthenticationService {
   FirebaseAuth auth = FirebaseAuth.instance;
 
   Stream<User?> retrieveCurrentUser() {
-    return auth.authStateChanges().map((User? user) {
+    return auth.userChanges().map((User? user) {
       return user;
     });
   }

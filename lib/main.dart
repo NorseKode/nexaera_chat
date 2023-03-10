@@ -7,8 +7,9 @@ import 'package:nexaera_chat/blocs/authentication/auth.dart';
 import 'package:nexaera_chat/blocs/authentication/authentication_bloc.dart';
 import 'package:nexaera_chat/blocs/domain/domain_bloc.dart';
 import 'package:nexaera_chat/blocs/upload_domain/upload_domain_bloc.dart';
+import 'package:nexaera_chat/data/repositories/authentication_repository.dart';
 import 'package:nexaera_chat/data/repositories/nexaera_repository.dart';
-import 'package:nexaera_chat/data/services/authorization_service.dart';
+import 'package:nexaera_chat/data/services/auth_service.dart';
 import 'package:nexaera_chat/data/services/firestore_service.dart';
 import 'package:nexaera_chat/utils/routes.dart';
 import 'package:provider/provider.dart';
@@ -28,12 +29,13 @@ Future<void> main() async {
   );
 
   Bloc.observer = MyBlocObserver();
-  var auth = AuthenticationService();
+  var authService = AuthenticationService();
   var firestore = FirestoreService();
+  var auth = AuthenticationRepository(authService, firestore);
   runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider<AuthProvider>(
-          create: (_) => AuthProvider(auth, firestore),
+          create: (_) => AuthProvider(auth),
         ),
         ProxyProvider<AuthProvider, AppRouter>(
             update: (_, auth, appRouter) => appRouter ?? AppRouter(auth)),
@@ -52,7 +54,8 @@ Future<void> main() async {
             BlocProvider(
                 create: (context) => UploadDomainBloc(
                     context.read<NexaeraRepository>(),
-                    context.read<AuthProvider>())),
+                    context.read<AuthProvider>(),
+                    context.read<DomainRepository>())),
           ], child: const MyApp()))));
 }
 

@@ -41,4 +41,13 @@ class DomainRepository {
       rethrow;
     }
   }
+
+  Future<void> addDomain(DomainModel domain) {
+    try {
+      return _firestoreService.createDocumentWithAutoId(
+          'users/${_auth.user!.uid}/domains', domain.toMap());
+    } on Exception catch (_) {
+      rethrow;
+    }
+  }
 }

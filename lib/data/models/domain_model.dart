@@ -14,7 +14,9 @@ class DomainModel {
   DomainModel.fromDocumentSnapshot(DocumentSnapshot<Map<String, dynamic>> doc)
       : uid = doc.id,
         domain = doc.data()!["domain"],
-        altDomains = doc.data()!["alt_domains"];
+        altDomains = (doc.data()!["alt_domains"] as List<dynamic>)
+            .map((domain) => domain.toString())
+            .toList();
 
   DomainModel copyWith(
       {String? uid, String? domain, List<String>? altDomains}) {

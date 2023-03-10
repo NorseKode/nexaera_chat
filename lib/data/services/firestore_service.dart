@@ -12,6 +12,11 @@ class FirestoreService {
         .map((snapshot) => snapshot.docs);
   }
 
+  Stream<DocumentSnapshot<Map<String, dynamic>>> streamDocument(
+      String collectionPath, String docId) {
+    return db.collection(collectionPath).doc(docId).snapshots();
+  }
+
   Future<DocumentSnapshot<Map<String, dynamic>>> getDocument(
       String collectionPath, String docId) async {
     try {
@@ -29,5 +34,24 @@ class FirestoreService {
     } on FirebaseAuthException catch (e) {
       throw FirebaseAuthException(code: e.code, message: e.message);
     }
+  }
+
+  Future<void> createDocument(
+      String collectionPath, String docId, Map<String, dynamic> data) async {
+    return await db.collection(collectionPath).doc(docId).set(data);
+  }
+
+  Future<void> createDocumentWithAutoId(
+      String collectionPath, Map<String, dynamic> data) async {
+    await db.collection(collectionPath).add(data);
+    return;
+  }
+
+  Future<void> updateDocument(
+      String collectionPath, String docId, Map<String, dynamic> data) async {
+    return await db
+        .collection(collectionPath)
+        .doc(docId)
+        .set(data, SetOptions(merge: true));
   }
 }

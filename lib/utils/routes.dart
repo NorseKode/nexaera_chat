@@ -78,8 +78,13 @@ class AppRouter {
 
     redirect: (context, state) {
       //redirect to the login page if the user is not logged in
+
       var isSigningIn =
           (state.subloc == '/signin' || state.subloc == '/signup');
+      print('auth: ' +
+          auth.isAuthenticated.toString() +
+          ', signin: ' +
+          isSigningIn.toString());
       if (!auth.isAuthenticated && !isSigningIn) return '/signin';
       if (auth.isAuthenticated && isSigningIn) return '/';
 
