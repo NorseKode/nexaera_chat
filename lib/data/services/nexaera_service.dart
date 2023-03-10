@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:nexaera_chat/data/models/promt_input.dart';
+import 'package:nexaera_chat/data/models/prompt_input.dart';
 import 'package:nexaera_chat/data/models/promt_output.dart';
 import 'package:nexaera_chat/data/models/scrape_progress.dart';
 import 'package:http/http.dart' as http;
@@ -49,7 +49,7 @@ class NexaeraService {
 
   //return prompt output
   Stream<PromptOutputModel> sendPromptMessage(
-      PromtInputModel input, String sessionId) async* {
+      PromptInputModel input, String sessionId) async* {
     try {
       var response = http
           .post(

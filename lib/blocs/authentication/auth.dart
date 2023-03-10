@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:nexaera_chat/data/models/user_model.dart';
 import 'package:nexaera_chat/data/repositories/authentication_repository.dart';
 import 'package:nexaera_chat/data/services/firestore_service.dart';
 
@@ -35,7 +36,7 @@ class AuthProvider with ChangeNotifier {
     return user != null;
   }
 
-  Future getCurrentUserDetails() async {
+  Future<UserModel> getCurrentUserDetails() async {
     return await _auth.getCurrentUserDetails(user!.uid);
   }
 
@@ -49,5 +50,9 @@ class AuthProvider with ChangeNotifier {
 
   Future signUp(String email, String password) async {
     _auth.signUp(email, password);
+  }
+
+  Future updateUserInfo(String firstName, String lastName) async {
+    _auth.updateUserInfo(user!.uid, firstName, lastName);
   }
 }

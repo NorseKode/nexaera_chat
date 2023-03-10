@@ -30,6 +30,12 @@ class AuthenticationRepository {
         UserModel(email: user.email, firstName: null, lastName: null).toMap());
   }
 
+  Future<void> updateUserInfo(
+      String userId, String firstName, String lastName) async {
+    await _firestoreService.updateDocument(
+        'users', userId, {'first_name': firstName, 'last_name': lastName});
+  }
+
   Future<UserCredential?> signIn(String email, String password) async {
     try {
       return await _auth.signIn(email, password);

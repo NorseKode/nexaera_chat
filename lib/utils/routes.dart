@@ -39,7 +39,7 @@ class AppRouter {
         path: '/chat',
         pageBuilder: (context, state) => NoTransitionPage<void>(
           key: state.pageKey,
-          child: const ChatScreen(),
+          child: ChatScreen(),
         ),
       ),
       GoRoute(

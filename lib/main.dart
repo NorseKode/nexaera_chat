@@ -8,7 +8,7 @@ import 'package:nexaera_chat/blocs/authentication/authentication_bloc.dart';
 import 'package:nexaera_chat/blocs/domain/domain_bloc.dart';
 import 'package:nexaera_chat/blocs/upload_domain/upload_domain_bloc.dart';
 import 'package:nexaera_chat/data/repositories/authentication_repository.dart';
-import 'package:nexaera_chat/data/repositories/nexaera_repository.dart';
+import 'package:nexaera_chat/data/repositories/server_repository.dart';
 import 'package:nexaera_chat/data/services/auth_service.dart';
 import 'package:nexaera_chat/data/services/firestore_service.dart';
 import 'package:nexaera_chat/utils/routes.dart';
@@ -45,7 +45,7 @@ Future<void> main() async {
             RepositoryProvider(
                 create: (context) =>
                     DomainRepository(context.read<AuthProvider>())),
-            RepositoryProvider(create: (context) => NexaeraRepository())
+            RepositoryProvider(create: (context) => ServerRepository())
           ],
           child: MultiBlocProvider(providers: [
             BlocProvider(
@@ -53,7 +53,7 @@ Future<void> main() async {
                     DomainBloc(context.read<DomainRepository>())),
             BlocProvider(
                 create: (context) => UploadDomainBloc(
-                    context.read<NexaeraRepository>(),
+                    context.read<ServerRepository>(),
                     context.read<AuthProvider>(),
                     context.read<DomainRepository>())),
           ], child: const MyApp()))));

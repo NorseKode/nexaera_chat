@@ -30,28 +30,36 @@ class HomeScreen extends StatelessWidget {
                             children: [
                               const Headline(title: 'Welcome to NEXÆRA'),
                               const SizedBox(height: 32),
-                              Text(
-                                'Choose your domain',
-                                style: theme.textTheme.headlineSmall!
-                                    .copyWith(fontWeight: FontWeight.w500),
-                              ),
-                              const SizedBox(height: 16),
-                              Text(
-                                  "In order to get started, please input a domain that you own",
-                                  style: theme.textTheme.bodyMedium!.apply(
-                                      color:
-                                          theme.colorScheme.onSurfaceVariant)),
-                              const SizedBox(height: 8),
-                              Text(
-                                  "Nexæra scans this domain for all information available and you will be able to interact with it through our chat or edit it in the workshop",
-                                  style: theme.textTheme.bodyMedium!.apply(
-                                      color:
-                                          theme.colorScheme.onSurfaceVariant)),
-                              const SizedBox(height: 32),
                               BlocBuilder<UploadDomainBloc, UploadDomainState>(
                                   builder: (context, state) {
+                                if (state is UploadDone) {
+                                  return const Text("Upload completed");
+                                }
                                 return Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
                                   children: [
+                                    Text(
+                                      'Choose your domain',
+                                      style: theme.textTheme.headlineSmall!
+                                          .copyWith(
+                                              fontWeight: FontWeight.w500),
+                                    ),
+                                    const SizedBox(height: 16),
+                                    Text(
+                                        "In order to get started, please input a domain that you own",
+                                        style: theme.textTheme.bodyMedium!
+                                            .apply(
+                                                color: theme.colorScheme
+                                                    .onSurfaceVariant)),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                        "Nexæra scans this domain for all information available and you will be able to interact with it through our chat or edit it in the workshop",
+                                        style: theme.textTheme.bodyMedium!
+                                            .apply(
+                                                color: theme.colorScheme
+                                                    .onSurfaceVariant)),
+                                    const SizedBox(height: 32),
                                     CustomTextField(
                                       readOnly: state is ScrapeInProgress,
                                       hint: 'yourdomain.com',
