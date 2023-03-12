@@ -11,11 +11,7 @@ class ServerRepository {
   NexaeraService service = NexaeraService();
 
   Future<String> createSession(String clientId) {
-    try {
-      return service.createSession(clientId);
-    } on Exception catch (_) {
-      rethrow;
-    }
+    return service.createSession(clientId);
   }
 
   Stream<ScrapeProgressModel> uploadDomain(String url, String accessToken) {
@@ -23,8 +19,6 @@ class ServerRepository {
   }
 
   Stream<PromptOutputModel> sendPromptMessage(PromptInputModel input) {
-    return service
-        .sendPromptMessage(input, input.sessionId)
-        .asBroadcastStream();
+    return service.sendPromptMessage(input).asBroadcastStream();
   }
 }
