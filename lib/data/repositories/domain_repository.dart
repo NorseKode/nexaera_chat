@@ -1,4 +1,4 @@
-import 'package:nexaera_chat/blocs/authentication/auth.dart';
+import 'package:nexaera_chat/app/auth.dart';
 import 'package:nexaera_chat/data/models/domain_model.dart';
 import 'package:nexaera_chat/data/services/firestore_service.dart';
 

@@ -4,7 +4,7 @@ import 'package:nexaera_chat/data/models/user_model.dart';
 import 'package:nexaera_chat/presentation/components/page_header.dart';
 import 'package:unicons/unicons.dart';
 
-import '../../blocs/authentication/auth.dart';
+import '../../app/auth.dart';
 import '../components/custom_app_bar.dart';
 import '../components/custom_text_field.dart';
 

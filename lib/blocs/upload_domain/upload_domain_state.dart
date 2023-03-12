@@ -25,7 +25,7 @@ class UploadDone extends UploadDomainState {
 }
 
 class UploadError extends UploadDomainState {
-  final Exception e;
+  final String e;
 
   const UploadError(this.e);
 }

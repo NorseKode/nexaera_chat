@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:nexaera_chat/presentation/constants/nav_items.dart';
 import 'package:unicons/unicons.dart';
 
-import '../../blocs/authentication/auth.dart';
+import '../../app/auth.dart';
 import '../../utils/routes.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {

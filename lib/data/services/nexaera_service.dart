@@ -27,24 +27,28 @@ class NexaeraService {
   //return scrapeprogress
   Stream<ScrapeProgressModel> uploadDomain(
       String url, String accessToken) async* {
-    try {
-      var response = http.post(
-        Uri.parse('$basePath/upload/domain/'),
-        headers: {'accessToken': accessToken},
-        body: {'url': url},
-      ).asStream();
+    // try {
+    print('url: ' + url);
+    var response = http.post(
+      Uri.parse('$basePath/upload/domain/'),
+      headers: {'Authorization': accessToken},
+      body: {'domain': url},
+    ).asStream();
 
-      yield* response.map((progress) {
-        print('scrape progress:${progress.body}');
-        if (progress.statusCode == 200) {
-          return json.decode(progress.body);
-        } else {
-          throw Exception('Failed to stream data');
-        }
-      });
-    } on Exception catch (_) {
-      rethrow;
-    }
+    yield* response.map((progress) {
+      print('scrape progress:${progress.body}');
+      if (progress.statusCode == 200) {
+        return ScrapeProgressModel(
+            statusCode: 200,
+            message: 'Done',
+            urlInProgress: json.decode(progress.body)['domain']);
+      } else {
+        throw Exception('Failed to stream data');
+      }
+    });
+    // } on Exception catch (e) {
+    //   rethrow;
+    // }
   }
 
   //return prompt output

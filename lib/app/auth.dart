@@ -6,7 +6,7 @@ import 'package:nexaera_chat/data/models/user_model.dart';
 import 'package:nexaera_chat/data/repositories/authentication_repository.dart';
 import 'package:nexaera_chat/data/services/firestore_service.dart';
 
-import '../../data/services/auth_service.dart';
+import '../data/services/auth_service.dart';
 
 //Should be changed to a bloc
 class AuthProvider with ChangeNotifier {

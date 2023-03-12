@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nexaera_chat/blocs/upload_domain/upload_domain_bloc.dart';
 import 'package:nexaera_chat/presentation/components/page_header.dart';
+import 'package:nexaera_chat/presentation/components/paragraph_text.dart';
 import 'package:unicons/unicons.dart';
 
 import '../components/custom_app_bar.dart';
@@ -39,27 +40,16 @@ class HomeScreen extends StatelessWidget {
                                   crossAxisAlignment:
                                       CrossAxisAlignment.stretch,
                                   children: [
-                                    Text(
-                                      'Choose your domain',
-                                      style: theme.textTheme.headlineSmall!
-                                          .copyWith(
-                                              fontWeight: FontWeight.w500),
-                                    ),
+                                    Text('Choose your domain',
+                                        style: theme.textTheme.headlineSmall),
                                     const SizedBox(height: 16),
-                                    Text(
-                                        "In order to get started, please input a domain that you own",
-                                        style: theme.textTheme.bodyMedium!
-                                            .apply(
-                                                color: theme.colorScheme
-                                                    .onSurfaceVariant)),
+                                    const Paragraph(
+                                        "In order to get started, please input a domain that you own"),
                                     const SizedBox(height: 8),
-                                    Text(
-                                        "Nexæra scans this domain for all information available and you will be able to interact with it through our chat or edit it in the workshop",
-                                        style: theme.textTheme.bodyMedium!
-                                            .apply(
-                                                color: theme.colorScheme
-                                                    .onSurfaceVariant)),
-                                    const SizedBox(height: 32),
+                                    const Paragraph(
+                                      "Nexæra scans this domain for all information available and you will be able to interact with it through our chat or edit it in the workshop",
+                                    ),
+                                    const SizedBox(height: 24),
                                     CustomTextField(
                                       readOnly: state is ScrapeInProgress,
                                       hint: 'yourdomain.com',
@@ -87,7 +77,7 @@ class HomeScreen extends StatelessWidget {
                                         : Column(
                                             children: [
                                               const SizedBox(height: 16),
-                                              Text('error: ${state.e}'),
+                                              Text(state.e.toString()),
                                             ],
                                           )
                                   ],

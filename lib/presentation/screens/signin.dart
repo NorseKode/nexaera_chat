@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nexaera_chat/presentation/components/custom_text_field.dart';
 
-import '../../blocs/authentication/auth.dart';
+import '../../app/auth.dart';
 import '../../blocs/sign_in/sign_in_bloc.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -43,12 +43,8 @@ class SignInScreen extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 8),
-                          Text(
-                            'Log in to your account',
-                            style: theme.textTheme.headlineSmall!.copyWith(
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
+                          Text('Log in to your account',
+                              style: theme.textTheme.headlineSmall),
                           const SizedBox(height: 35),
                           CustomTextField(
                               hint: 'Email address',

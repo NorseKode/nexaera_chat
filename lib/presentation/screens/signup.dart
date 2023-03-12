@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../../blocs/authentication/auth.dart';
+import '../../app/auth.dart';
 import '../components/custom_text_field.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -49,9 +49,7 @@ class SignUpScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Text('Sign up with email',
-                        style: theme.textTheme.headlineSmall!.copyWith(
-                          fontWeight: FontWeight.w700,
-                        )),
+                        style: theme.textTheme.headlineSmall),
                     const SizedBox(height: 35),
                     CustomTextField(
                         hint: 'Email address',

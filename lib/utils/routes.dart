@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
 
-import '../blocs/authentication/auth.dart';
+import '../app/auth.dart';
 import '../presentation/screens/chat.dart';
 import '../presentation/screens/docs.dart';
 import '../presentation/screens/home.dart';

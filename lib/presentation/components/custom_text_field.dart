@@ -35,6 +35,7 @@ class CustomTextField extends StatelessWidget {
       keyboardType: keyboardType,
       controller: controller,
       textInputAction: textInputAction,
+      style: theme.textTheme.bodyMedium!.copyWith(fontFamily: 'Inter'),
       decoration: InputDecoration(
           isDense: true,
           prefixIcon: prefixIcon != null
@@ -52,6 +53,7 @@ class CustomTextField extends StatelessWidget {
               : null,
           hintText: hint,
           hintStyle: theme.textTheme.bodyMedium!.copyWith(
+              fontFamily: 'Inter',
               color: theme.colorScheme.onSurfaceVariant,
               fontWeight: FontWeight.w500),
           filled: true,
