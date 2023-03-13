@@ -55,20 +55,17 @@ class NexaeraService {
   //return prompt output
   Stream<PromptOutputModel> sendPromptMessage(PromptInputModel input) async* {
     try {
-      var response = http.post(
-        Uri.parse('$basePath/prompt/'),
-        headers: {'X-Session-ID': input.sessionId},
-        body: {'prompt': input.message},
-      ).asStream();
+      final url = Uri.parse('$basePath/prompt/');
+      final response = await http.post(url,
+          headers: {'X-Session-ID': input.sessionId},
+          body: {'prompt': input.message});
 
-      yield* response.map((output) {
-        print('prompt output:${output.body}');
-        if (output.statusCode == 200) {
-          return PromptOutputModel.fromMap(json.decode(output.body));
-        } else {
-          throw Exception('Failed to stream data ${output.body}');
-        }
-      });
+      if (response.statusCode == 200) {
+        final data = PromptOutputModel.fromMap(json.decode(response.body));
+        yield data;
+      } else {
+        throw Exception('Failed to fetch data');
+      }
     } on Exception catch (_) {
       rethrow;
     }
