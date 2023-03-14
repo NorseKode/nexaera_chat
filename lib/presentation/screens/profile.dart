@@ -31,6 +31,7 @@ class ProfileScreen extends StatelessWidget {
                                 .read<AuthProvider>()
                                 .getCurrentUserDetails(),
                             builder: (context, snapshot) {
+                              print(snapshot.data);
                               firstnameController.text =
                                   snapshot.data?.firstName ?? '';
                               lastnameController.text =

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nexaera_chat/blocs/domain/domain_bloc.dart';
 import 'package:nexaera_chat/data/repositories/domain_repository.dart';
+import 'package:nexaera_chat/presentation/section/add_domain.dart';
 import 'package:nexaera_chat/presentation/components/custom_drop_down.dart';
 import 'package:nexaera_chat/presentation/components/page_header.dart';
 import 'package:unicons/unicons.dart';
@@ -18,6 +19,8 @@ class WorkshopScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _theme = Theme.of(context);
+
+    //Include search functionalitites
     return Scaffold(
         appBar: CustomAppBar(),
         body: SingleChildScrollView(
@@ -33,6 +36,11 @@ class WorkshopScreen extends StatelessWidget {
                             children: [
                               const Headline(title: 'Workshop'),
                               const SizedBox(height: 32),
+                              const AddDomain(),
+                              const SizedBox(height: 32),
+                              Text("Your data",
+                                  style: _theme.textTheme.headlineSmall),
+                              const SizedBox(height: 16),
                               BlocBuilder<DomainBloc, DomainState>(
                                   builder: (context, state) {
                                 if (state is DomainListLoaded) {

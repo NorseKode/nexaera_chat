@@ -58,7 +58,9 @@ class CustomTextField extends StatelessWidget {
               fontWeight: FontWeight.w500),
           filled: true,
           fillColor: theme.colorScheme.surface,
-          border: const OutlineInputBorder(borderSide: BorderSide.none)),
+          border: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4.0)),
+              borderSide: BorderSide.none)),
     );
   }
 }

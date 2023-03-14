@@ -4,7 +4,6 @@ import 'package:nexaera_chat/data/models/domain_model.dart';
 import '../models/prompt_input.dart';
 import '../models/promt_output.dart';
 import '../models/scrape_progress.dart';
-import '../models/user_model.dart';
 import '../services/nexaera_service.dart';
 
 class ServerRepository {

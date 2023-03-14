@@ -21,8 +21,8 @@ class ChatSuccess extends ChatState {
 }
 
 class ChatError extends ChatState {
-  final String e;
-  const ChatError(super.chatMessages, this.e);
+  final String errorMessage;
+  const ChatError(super.chatMessages, this.errorMessage);
 }
 
 class ChatIdle extends ChatState {

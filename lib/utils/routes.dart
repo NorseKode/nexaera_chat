@@ -81,10 +81,7 @@ class AppRouter {
 
       var isSigningIn =
           (state.subloc == '/signin' || state.subloc == '/signup');
-      print('auth: ' +
-          auth.isAuthenticated.toString() +
-          ', signin: ' +
-          isSigningIn.toString());
+
       if (!auth.isAuthenticated && !isSigningIn) return '/signin';
       if (auth.isAuthenticated && isSigningIn) return '/';
 

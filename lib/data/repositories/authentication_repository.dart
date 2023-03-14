@@ -16,7 +16,8 @@ class AuthenticationRepository {
 
   Future<UserModel> getCurrentUserDetails(String userId) async {
     try {
-      return _firestoreService
+      print(userId);
+      return await _firestoreService
           .getDocument('users', userId)
           .then((doc) => UserModel.fromDocumentSnapshot(doc));
     } on Exception catch (_) {

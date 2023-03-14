@@ -12,6 +12,7 @@ import 'package:nexaera_chat/data/services/auth_service.dart';
 import 'package:nexaera_chat/data/services/firestore_service.dart';
 import 'package:nexaera_chat/utils/routes.dart';
 import 'package:provider/provider.dart';
+import 'blocs/chat/chat_bloc.dart';
 import 'data/repositories/domain_repository.dart';
 import 'firebase_options.dart';
 
@@ -55,6 +56,9 @@ Future<void> main() async {
                     context.read<ServerRepository>(),
                     context.read<AuthProvider>(),
                     context.read<DomainRepository>())),
+            BlocProvider(
+                create: (context) =>
+                    ChatBloc(context.read<ServerRepository>())),
           ], child: const MyApp()))));
 }
 

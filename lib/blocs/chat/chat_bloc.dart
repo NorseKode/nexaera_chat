@@ -1,15 +1,12 @@
-import 'dart:async';
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:http/http.dart';
-import 'package:nexaera_chat/data/models/prompt_input.dart';
-import 'package:nexaera_chat/data/models/chat_model.dart';
-import 'package:nexaera_chat/data/models/promt_output.dart';
-import 'package:nexaera_chat/data/repositories/server_repository.dart';
-import 'package:nexaera_chat/presentation/constants/chat_roles.dart';
-import 'package:nexaera_chat/presentation/constants/promt_finish_reason.dart';
+
+import '../../data/models/prompt_input.dart';
+import '../../data/models/chat_model.dart';
+import '../../data/models/promt_output.dart';
+import '../../data/repositories/server_repository.dart';
+import '../../presentation/constants/chat_roles.dart';
+import '../../presentation/constants/promt_finish_reason.dart';
 
 part 'chat_event.dart';
 part 'chat_state.dart';
@@ -18,9 +15,15 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   String? sessionId;
   ChatBloc(this._serverRepository) : super(const ChatInitial([])) {
     on<CreateChatSession>((event, emit) async {
+      var messages = state.chatMessages.toList();
       emit(ChatLoading(state.chatMessages));
-      sessionId = await _serverRepository.createSession(event.domain);
-      emit(ChatIdle(state.chatMessages));
+      try {
+        sessionId = await _serverRepository.createSession(event.domain);
+        emit(ChatIdle(state.chatMessages));
+      } catch (e) {
+        //Log errors
+        emit(ChatError(messages, "Couldn't establish connection"));
+      }
     });
 
     on<SendChatMessage>((event, emit) async {
@@ -48,7 +51,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         emit(ChatIdle(messages));
       } catch (e) {
         messages.add(ChatModel(ChatRole.chatbot, 'Something went wrong: $e'));
-        emit(ChatIdle(messages));
+        emit(ChatError(messages, e.toString()));
       }
     });
   }
