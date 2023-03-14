@@ -3,7 +3,15 @@ import 'package:flutter/widgets.dart';
 import '../components/paragraph_text.dart';
 import '../components/section.dart';
 
-enum Document { introduction, quickstart }
+enum Document {
+  introduction,
+  quickstart,
+  library,
+  authentication,
+  api,
+  tutorials,
+  dataUsagePolicies
+}
 
 extension DocumentExtension on Document {
   String get displayName => displayNames[this] ?? 'Undefined';
@@ -11,7 +19,12 @@ extension DocumentExtension on Document {
 
   static const displayNames = {
     Document.introduction: 'Introduction',
-    Document.quickstart: 'Quickstart'
+    Document.quickstart: 'Quickstart',
+    Document.library: 'Library',
+    Document.authentication: 'Authentication',
+    Document.api: 'API', //Models
+    Document.tutorials: 'Tutorials',
+    Document.dataUsagePolicies: 'Data usage policies',
   };
 
 //Should be changed to retrieve from database instead
@@ -27,7 +40,7 @@ extension DocumentExtension on Document {
       ]),
       Section(title: 'AI capabilities', content: [
         Paragraph(
-            "Our AI is a cutting-edge AI chatbot that can help your company gain valuable insights from your data. It can work with structured and unstructured data, including text, images, and numerical data, and is trained on a variety of industries and domains. Our AI can provide insights on topics such as customer behavior, market trends, and product performance using your own company data. With its powerful natural language processing capabilities, Our AI can understand and respond to your queries in a conversational manner, making it easy to get the insights you need. Whether you need to analyze customer feedback, monitor social media sentiment, or make data-driven decisions, Our AI is here to help you.")
+            "Nexæra is a cutting-edge AI chatbot that can help your company gain valuable insights from your data. It can work with structured and unstructured data, including text, images, and numerical data, and is trained on a variety of industries and domains.\n\nThe AI can provide insights on topics such as customer behavior, market trends, and product performance using your own company data. With its powerful natural language processing capabilities, the AI can understand and respond to your queries in a conversational manner, making it easy to get the insights you need.\n\nWhether you need to analyze customer feedback, monitor social media sentiment, or make data-driven decisions, Nexæra is here to help you.")
       ])
     ],
   };

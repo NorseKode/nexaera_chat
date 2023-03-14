@@ -20,7 +20,7 @@ class QuickActionBox extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(category, style: theme.textTheme.labelSmall),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               title,
               style: theme.textTheme.titleMedium,

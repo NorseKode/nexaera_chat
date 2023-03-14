@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:go_router/go_router.dart';
 import 'package:nexaera_chat/presentation/constants/nav_items.dart';
 import 'package:unicons/unicons.dart';
 
@@ -57,9 +56,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   Widget _nav(BuildContext context) {
-    var location = GoRouter.of(context).location;
     List<Widget> menuItems =
-        NavItem.values.map((e) => NavigationTextItem(navItem: e)).toList();
+        NavItem.values.map((e) => _NavigationTextItem(navItem: e)).toList();
 
     return Wrap(spacing: 32, children: menuItems);
   }
@@ -80,8 +78,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(64.0);
 }
 
-class NavigationTextItem extends StatelessWidget {
-  const NavigationTextItem({
+class _NavigationTextItem extends StatelessWidget {
+  const _NavigationTextItem({
     super.key,
     required this.navItem,
   });
@@ -94,7 +92,7 @@ class NavigationTextItem extends StatelessWidget {
     var isSelected = _isSelected(GoRouter.of(context).location, navItem.route);
     return GestureDetector(
         behavior: HitTestBehavior.translucent,
-        onTap: () => context.goNamed(navItem.name),
+        onTap: () => context.go(navItem.route),
         child: Text(navItem.displayName,
             style: theme.textTheme.bodyMedium!.copyWith(
                 fontFamily: 'SpaceGrotesk',

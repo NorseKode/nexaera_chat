@@ -44,15 +44,17 @@ class AppRouter {
         ),
       ),
       GoRoute(
+        path: '/docs',
+        redirect: (context, state) => '/docs/${Document.introduction.name}',
+      ),
+      GoRoute(
           name: 'docs',
-          path: '/docs',
-          pageBuilder: (context, state) {
-            final document = (state.extra ?? Document.introduction) as Document;
-            return NoTransitionPage<void>(
+          path: '/docs/:doc',
+          pageBuilder: (context, state) => NoTransitionPage<void>(
               key: state.pageKey,
-              child: DocsScreen(document: document),
-            );
-          }),
+              child: DocsScreen(
+                  document:
+                      Document.values.asNameMap()[state.params['doc']]!))),
       GoRoute(
         name: 'profile',
         path: '/profile',
@@ -81,7 +83,6 @@ class AppRouter {
 
     redirect: (context, state) {
       //redirect to the login page if the user is not logged in
-
       var isSigningIn =
           (state.subloc == '/signin' || state.subloc == '/signup');
 
