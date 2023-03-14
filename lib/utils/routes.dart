@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../app/auth.dart';
+import '../presentation/constants/documents.dart';
 import '../presentation/screens/chat.dart';
 import '../presentation/screens/docs.dart';
 import '../presentation/screens/home.dart';
@@ -43,13 +44,15 @@ class AppRouter {
         ),
       ),
       GoRoute(
-        name: 'docs',
-        path: '/docs',
-        pageBuilder: (context, state) => NoTransitionPage<void>(
-          key: state.pageKey,
-          child: const DocsScreen(),
-        ),
-      ),
+          name: 'docs',
+          path: '/docs',
+          pageBuilder: (context, state) {
+            final document = (state.extra ?? Document.introduction) as Document;
+            return NoTransitionPage<void>(
+              key: state.pageKey,
+              child: DocsScreen(document: document),
+            );
+          }),
       GoRoute(
         name: 'profile',
         path: '/profile',
