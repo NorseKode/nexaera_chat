@@ -25,7 +25,7 @@ class ChatScreen extends StatelessWidget {
     return Scaffold(
         appBar: CustomAppBar(),
         body: Padding(
-            padding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
+            padding: const EdgeInsets.fromLTRB(24, 40, 24, 24),
             child: Align(
                 alignment: Alignment.topCenter,
                 child: Container(
@@ -34,6 +34,8 @@ class ChatScreen extends StatelessWidget {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          const Headline(title: 'Chat'),
+                          const SizedBox(height: 32),
                           BlocBuilder<ChatBloc, ChatState>(
                               builder: (context, state) {
                             if (state is ChatInitial) {

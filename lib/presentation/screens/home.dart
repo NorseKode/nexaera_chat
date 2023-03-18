@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:nexaera_chat/presentation/components/custom_text_button.dart';
 import 'package:nexaera_chat/presentation/components/page_header.dart';
 import 'package:nexaera_chat/presentation/components/paragraph_text.dart';
@@ -16,22 +17,31 @@ class HomeScreen extends StatelessWidget {
     ThemeData theme = Theme.of(context);
     return Scaffold(
         appBar: CustomAppBar(),
-        body: Row(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                  child: Padding(
-                      padding: const EdgeInsets.fromLTRB(24, 40, 24, 24),
-                      child: Align(
-                          alignment: Alignment.topCenter,
-                          child: Container(
-                              constraints: const BoxConstraints(maxWidth: 800),
-                              width: double.infinity,
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [Text("hello")]))))),
-            ),
-          ],
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(24, 40, 24, 24),
+            child: Container(
+                constraints: const BoxConstraints(maxWidth: 800),
+                width: double.infinity,
+                child: Column(mainAxisSize: MainAxisSize.min, children: [
+                  const Headline(title: "Welcome to Nexæra"),
+                  const SizedBox(height: 32),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CustomTextButton(
+                          onPressed: () => context.goNamed('workshop'),
+                          text: 'Add data'),
+                      const SizedBox(width: 32),
+                      CustomTextButton(
+                        onPressed: () => context.goNamed('chat'),
+                        text: 'Start Chatting',
+                        color: theme.colorScheme.primary,
+                      ),
+                    ],
+                  ),
+                ])),
+          ),
         ));
   }
 }

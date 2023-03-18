@@ -7,6 +7,7 @@ import 'package:nexaera_chat/app/auth.dart';
 
 import '../../data/models/chat_model.dart';
 import '../constants/chat_roles.dart';
+import 'page_header.dart';
 
 class ChatBox extends StatelessWidget {
   const ChatBox({super.key, required this.messages});
@@ -25,7 +26,7 @@ class ChatBox extends StatelessWidget {
             itemBuilder: (context, index) =>
                 _ChatMessageBox(message: messages[index]),
             separatorBuilder: (context, index) => Divider(
-                  indent: 56,
+                  indent: 60,
                   height: 40,
                   color: theme.colorScheme.surface,
                 ),
@@ -64,12 +65,12 @@ class _ChatMessageBox extends StatelessWidget {
 
   final ChatModel message;
 
-  // _logo() {
-  //   String assetName = 'assets/chatbot.svg';
-  //   Widget svg = SvgPicture.asset(
-  //     assetName,
-  //   );
-  // }
+  Widget _logo() {
+    String assetName = 'assets/chatbot_logo_dark.svg';
+    return SvgPicture.asset(
+      assetName,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,45 +79,23 @@ class _ChatMessageBox extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          height: 40,
-          width: 40,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4),
-              color: theme.colorScheme.surface),
-          //child: FittedBox(child: message.role == ChatRole.chatbot ? _logo() : Text())
-        ),
+            height: 40,
+            width: 40,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4),
+                color: message.role == ChatRole.chatbot
+                    ? Colors.white
+                    : theme.colorScheme.surface),
+            child: Padding(
+              padding: EdgeInsets.all(8),
+              child: FittedBox(
+                  child: message.role == ChatRole.chatbot
+                      ? Headline(title: "NÆ", color: theme.colorScheme.surface)
+                      : Headline(title: "ML")),
+            )),
         SizedBox(width: 24),
         Expanded(child: Text(message.message)),
-        // Expanded(
-        //   child: Container(
-        //     width: double.infinity,
-        //     alignment: message.role == ChatRole.user
-        //         ? Alignment.topRight
-        //         : Alignment.topLeft,
-        //     padding: message.role == ChatRole.user
-        //         ? const EdgeInsets.only(left: 64)
-        //         : const EdgeInsets.only(right: 64),
-        //     child: Column(
-        //       mainAxisSize: MainAxisSize.min,
-        //       crossAxisAlignment: message.role == ChatRole.user
-        //           ? CrossAxisAlignment.end
-        //           : CrossAxisAlignment.start,
-        //       children: [
-        //         //Name need to change to be dynamic?
-        //         Text(message.role.name),
-        //         Text(
-        //           message.message,
-        //           textAlign: message.role == ChatRole.user
-        //               ? TextAlign.right
-        //               : TextAlign.left,
-        //           style: TextStyle(color: theme.colorScheme.onSurfaceVariant),
-        //         ),
-        //       ],
-        //     ),
-        //   ),
-        // ),
       ],
     );
-    ;
   }
 }

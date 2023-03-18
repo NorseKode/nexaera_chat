@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nexaera_chat/presentation/section/doc.dart';
+import 'package:nexaera_chat/presentation/sections/doc.dart';
 import 'package:unicons/unicons.dart';
 
 import '../components/custom_app_bar.dart';

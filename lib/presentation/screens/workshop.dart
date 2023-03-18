@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nexaera_chat/blocs/domain/domain_bloc.dart';
 import 'package:nexaera_chat/data/repositories/domain_repository.dart';
-import 'package:nexaera_chat/presentation/section/add_domain.dart';
+import 'package:nexaera_chat/presentation/sections/add_domain.dart';
 import 'package:nexaera_chat/presentation/components/custom_drop_down.dart';
 import 'package:nexaera_chat/presentation/components/page_header.dart';
 import 'package:unicons/unicons.dart';
