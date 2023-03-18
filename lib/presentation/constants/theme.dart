@@ -27,8 +27,9 @@ class AppThemeData {
   static final TextTheme _textTheme = const TextTheme(
           headlineMedium: TextStyle(),
           headlineSmall: TextStyle(fontWeight: FontWeight.w500),
-          bodyMedium: TextStyle(fontSize: 16, height: 1.5, fontFamily: 'Inter'),
-          bodySmall: TextStyle(fontSize: 14, height: 1.5),
+          bodyLarge: TextStyle(fontSize: 16, height: 1.5, fontFamily: 'Inter'),
+          bodyMedium: TextStyle(fontSize: 14, height: 1.5, fontFamily: 'Inter'),
+          bodySmall: TextStyle(fontSize: 12, height: 1.5, fontFamily: 'Inter'),
           labelSmall: TextStyle(fontSize: 12))
       .apply(
     bodyColor: darkColorScheme.onBackground,

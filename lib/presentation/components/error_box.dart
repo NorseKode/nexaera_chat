@@ -10,14 +10,12 @@ class ErrorBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return Container(
       width: double.infinity,
-      child: Row(
-        children: [
-          const Icon(UniconsLine.exclamation_circle),
-          const SizedBox(width: 16),
-          Text(errorMessage),
-        ],
+      child: Text(
+        errorMessage,
+        style: TextStyle().apply(color: theme.colorScheme.error),
       ),
     );
   }

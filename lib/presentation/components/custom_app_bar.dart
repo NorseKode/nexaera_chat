@@ -41,9 +41,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         onTap: () => context.goNamed(NavItem.start.name),
         child: Row(
           children: [
-            Icon(UniconsLine.tag_alt,
-                size: 20, color: _theme.colorScheme.primary),
-            const SizedBox(width: 16),
+            // Icon(UniconsLine.tag_alt,
+            //     size: 20, color: _theme.colorScheme.primary),
+            // const SizedBox(width: 16),
             Text("NEXÆRA",
                 style: _theme.textTheme.bodyMedium!.copyWith(
                   fontFamily: 'SpaceGrotesk',

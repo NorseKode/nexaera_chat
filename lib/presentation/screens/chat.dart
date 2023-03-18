@@ -25,7 +25,7 @@ class ChatScreen extends StatelessWidget {
     return Scaffold(
         appBar: CustomAppBar(),
         body: Padding(
-            padding: const EdgeInsets.fromLTRB(24, 40, 24, 24),
+            padding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
             child: Align(
                 alignment: Alignment.topCenter,
                 child: Container(
@@ -34,7 +34,6 @@ class ChatScreen extends StatelessWidget {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Headline(title: 'Chat'),
                           BlocBuilder<ChatBloc, ChatState>(
                               builder: (context, state) {
                             if (state is ChatInitial) {
@@ -48,17 +47,14 @@ class ChatScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   ChatBox(messages: state.chatMessages),
-                                  const SizedBox(height: 24),
-                                  state is ChatError
-                                      ? Padding(
-                                          padding:
-                                              const EdgeInsets.only(bottom: 24),
-                                          child: ErrorBox(state.errorMessage),
-                                        )
+                                  state is ChatLoading
+                                      ? const LinearProgressIndicator()
                                       : Container(),
                                   CustomTextField(
                                     readOnly: state is! ChatIdle,
-                                    hint: '',
+                                    hint: state is ChatError
+                                        ? state.errorMessage
+                                        : 'Ask me anything...',
                                     suffixIcon: UniconsLine.message,
                                     controller: chatController,
                                     onSubmitted: (message) {

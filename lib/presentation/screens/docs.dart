@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nexaera_chat/presentation/components/page_header.dart';
-import 'package:nexaera_chat/presentation/components/paragraph_text.dart';
-import 'package:nexaera_chat/presentation/components/section.dart';
 import 'package:nexaera_chat/presentation/section/doc.dart';
 import 'package:unicons/unicons.dart';
 

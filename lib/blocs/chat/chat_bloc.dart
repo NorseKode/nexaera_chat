@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../data/models/prompt_input.dart';
 import '../../data/models/chat_model.dart';
@@ -16,12 +17,18 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   ChatBloc(this._serverRepository) : super(const ChatInitial([])) {
     on<CreateChatSession>((event, emit) async {
       var messages = state.chatMessages.toList();
-      emit(ChatLoading(state.chatMessages));
+      messages.addAll([
+        ChatModel(ChatRole.user,
+            'HelloddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE'),
+        ChatModel(ChatRole.chatbot, 'Tho'),
+      ]);
+      emit(ChatLoading(messages));
       try {
         sessionId = await _serverRepository.createSession(event.domain);
         emit(ChatIdle(state.chatMessages));
       } catch (e) {
         //Log errors
+        print(e);
         emit(ChatError(messages, "Couldn't establish connection"));
       }
     });

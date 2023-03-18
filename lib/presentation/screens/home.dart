@@ -3,6 +3,7 @@ import 'package:nexaera_chat/presentation/components/custom_text_button.dart';
 import 'package:nexaera_chat/presentation/components/page_header.dart';
 import 'package:nexaera_chat/presentation/components/paragraph_text.dart';
 import 'package:nexaera_chat/presentation/components/quickaction_box.dart';
+import 'package:nexaera_chat/presentation/components/section.dart';
 import 'package:unicons/unicons.dart';
 
 import '../components/custom_app_bar.dart';
@@ -44,77 +45,19 @@ class HomeScreen extends StatelessWidget {
                                 ],
                               ),
                               const SizedBox(height: 32),
-                              Text('Chat history',
-                                  style: theme.textTheme.headlineSmall),
-                              const SizedBox(height: 16),
-                              Container(
-                                  width: double.infinity,
-                                  color: theme.colorScheme.surface,
-                                  height: 200),
-                              const SizedBox(height: 32),
-                              Text('Learn about',
-                                  style: theme.textTheme.headlineSmall),
-                              const SizedBox(height: 16),
-                              SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Row(
-                                  children: [
-                                    QuickActionBox(
-                                        title: 'Token Usage',
-                                        category: 'INTRODUCTION'),
-                                    SizedBox(
-                                      width: 16,
-                                    ),
-                                    QuickActionBox(
-                                        title: 'Domain Scraping',
-                                        category: 'INTRODUCTION'),
-                                    SizedBox(
-                                      width: 16,
-                                    ),
-                                    QuickActionBox(
-                                        title: 'Domain Scraping',
-                                        category: 'INTRODUCTION'),
-                                    SizedBox(
-                                      width: 16,
-                                    ),
-                                    QuickActionBox(
-                                        title: 'Domain Scraping',
-                                        category: 'INTRODUCTION'),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(height: 32),
-                              Text('Featured data sets',
-                                  style: theme.textTheme.headlineSmall),
-                              const SizedBox(height: 16),
-                              Container(
-                                  width: double.infinity,
-                                  color: theme.colorScheme.surface,
-                                  height: 200),
-                              const SizedBox(height: 32),
-                              Text('AI capabilities',
-                                  style: theme.textTheme.headlineSmall),
-                              const SizedBox(height: 16),
-                              Container(
-                                  width: double.infinity,
-                                  color: theme.colorScheme.surface,
-                                  height: 200),
-                              const SizedBox(height: 32),
-                              Text('Social proof',
-                                  style: theme.textTheme.headlineSmall),
-                              const SizedBox(height: 16),
-                              Container(
-                                  width: double.infinity,
-                                  color: theme.colorScheme.surface,
-                                  height: 200),
-                              const SizedBox(height: 32),
-                              Text('Privacy and Support',
-                                  style: theme.textTheme.headlineSmall),
-                              const SizedBox(height: 16),
-                              Container(
-                                  width: double.infinity,
-                                  color: theme.colorScheme.surface,
-                                  height: 200),
+                              Section(title: 'Chat history', content: [
+                                Container(
+                                    width: double.infinity,
+                                    color: theme.colorScheme.surface,
+                                    height: 200)
+                              ]),
+                              Section(title: 'Learn about', content: [
+                                const _LearnAbout(),
+                              ]),
+                              Section(title: 'Featured data sets', content: []),
+                              Section(title: 'AI capabilities', content: []),
+                              Section(title: 'Social proof', content: []),
+                              Section(title: 'Privacy and Support', content: [])
                             ]))))));
   }
 
@@ -140,6 +83,34 @@ class HomeScreen extends StatelessWidget {
         Text(
             "Social proof: Add some social proof, such as testimonials or user reviews, to establish credibility and build trust with your users.\nPrivacy policy and terms of service: Display links to your privacy policy and terms of service to ensure transparency and compliance with legal requirements.\nSupport options: Include links to support options, such as a help center or a contact form, to assist users if they encounter any issues with your app.")
       ],
+    );
+  }
+}
+
+class _LearnAbout extends StatelessWidget {
+  const _LearnAbout({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: const [
+          QuickActionBox(title: 'Token Usage', category: 'INTRODUCTION'),
+          SizedBox(
+            width: 16,
+          ),
+          QuickActionBox(title: 'Domain Scraping', category: 'INTRODUCTION'),
+          SizedBox(
+            width: 16,
+          ),
+          QuickActionBox(title: 'Domain Scraping', category: 'INTRODUCTION'),
+          SizedBox(
+            width: 16,
+          ),
+          QuickActionBox(title: 'Domain Scraping', category: 'INTRODUCTION'),
+        ],
+      ),
     );
   }
 }

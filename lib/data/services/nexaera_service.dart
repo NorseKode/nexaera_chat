@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:nexaera_chat/data/models/prompt_input.dart';
 import 'package:nexaera_chat/data/models/promt_output.dart';
@@ -10,14 +9,16 @@ import 'package:http/http.dart' as http;
 class NexaeraService {
   String basePath;
 
-  NexaeraService() : basePath = 'http://localhost:8000';
+  NexaeraService()
+      : basePath = 'https://nexaera.up.railway.app'; //'http://localhost:8000';
 
   //return response sessionID
   Future<String> createSession(String clientId) async {
     try {
       var response = await http.post(
         Uri.parse('$basePath/session/create/'),
-        body: {'clientId': clientId},
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({'clientId': clientId}),
       );
       print('session response: ${response.body}');
       return json.decode(response.body)['sessionId'];

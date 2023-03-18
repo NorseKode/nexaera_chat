@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nexaera_chat/presentation/components/custom_text_field.dart';
+import 'package:nexaera_chat/presentation/components/error_box.dart';
 
 import '../../app/auth.dart';
 import '../../blocs/sign_in/sign_in_bloc.dart';
@@ -45,55 +46,53 @@ class SignInScreen extends StatelessWidget {
                           const SizedBox(height: 8),
                           Text('Log in to your account',
                               style: theme.textTheme.headlineSmall),
-                          const SizedBox(height: 35),
+                          const SizedBox(height: 24),
                           CustomTextField(
                               hint: 'Email address',
                               controller: emailController,
                               keyboardType: TextInputType.emailAddress),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 16),
                           CustomTextField(
                             hint: 'Password',
                             controller: passwordController,
                             obscureText: true,
-                            onSubmitted: (e) => context.go('/signup'),
+                            onSubmitted: (e) => context.read<SignInBloc>().add(
+                                SigningIn(emailController.text,
+                                    passwordController.text)),
                           ),
-                          const SizedBox(height: 25),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              TextButton(
-                                  onPressed: () {},
-                                  child: const Text("Forgot password?"))
-                            ],
-                          ),
-                          const SizedBox(height: 30),
+                          // const SizedBox(height: 25),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.end,
+                          //   children: [
+                          //     TextButton(
+                          //         onPressed: () {},
+                          //         child: const Text("Forgot password?"))
+                          //   ],
+                          // ),
+                          const SizedBox(height: 24),
                           TextButton(
                             style: TextButton.styleFrom(
                                 backgroundColor: theme.primaryColor,
                                 padding: const EdgeInsets.all(16)),
-                            onPressed: () {
-                              if (formKey.currentState?.validate() ?? false) {
-                                context.read<SignInBloc>().add(SigningIn(
-                                    emailController.text,
-                                    passwordController.text));
-                              }
-                            },
+                            onPressed: () => context.read<SignInBloc>().add(
+                                SigningIn(emailController.text,
+                                    passwordController.text)),
                             child: Text("Login",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: theme.colorScheme.onPrimary)),
                           ),
-                          const SizedBox(height: 15),
-                          TextButton(
-                            style: TextButton.styleFrom(
-                                backgroundColor: theme.colorScheme.surface,
-                                padding: const EdgeInsets.all(16)),
-                            onPressed: () => context.go('/signup'),
-                            child: Text("Not registered? Sign up",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: theme.colorScheme.onSurface)),
-                          ),
+                          //const SizedBox(height: 15),
+                          // TextButton(
+                          //   style: TextButton.styleFrom(
+                          //       backgroundColor: theme.colorScheme.surface,
+                          //       padding: const EdgeInsets.all(16)),
+                          //   onPressed: () => context.go('/signup'),
+                          //   child: Text("Not registered? Sign up",
+                          //       textAlign: TextAlign.center,
+                          //       style: TextStyle(
+                          //           color: theme.colorScheme.onSurface)),
+                          // ),
                           if (state is SignInError) errorBox(state.message)
                         ],
                       ),
@@ -110,14 +109,8 @@ class SignInScreen extends StatelessWidget {
 
   Widget errorBox(String message) {
     return Padding(
-      padding: const EdgeInsets.only(top: 15),
-      child: Text(message),
+      padding: const EdgeInsets.only(top: 24),
+      child: ErrorBox(message),
     );
-  }
-
-  void tryLogin() {
-    if (formKey.currentState?.validate() ?? false) {
-      _auth.signIn(emailController.text, passwordController.text);
-    }
   }
 }

@@ -40,8 +40,8 @@ class AuthProvider with ChangeNotifier {
     return await _auth.getCurrentUserDetails(user!.uid);
   }
 
-  Future signIn(String email, String password) async {
-    _auth.signIn(email, password);
+  Future<UserCredential?> signIn(String email, String password) async {
+    return _auth.signIn(email, password);
   }
 
   Future signOut() async {

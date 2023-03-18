@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 const lightColorScheme = ColorScheme.light();
 
 const darkColorScheme = ColorScheme.dark(
-    primary: Color(0xFF399BE1), //Colors.blue
+    primary: Color(0xFF399BE1),
     onPrimary: Colors.white,
-    background: Color(0xFF1B1F24), //Color(0xFF111111), //Color(0xFF070707),
+    background: Color(0xFF1B1F24), //222222
     onBackground: Colors.white,
-    surface: Color(0xFF24292F), //Color(0xFF1E1E1E), //Color(0xFF222222),
-    surfaceVariant: Color(0xFF161B22), //Color(0xFF2B2B2B),
+    surface: Color(0xFF24292F), //2D2D2D
+    surfaceVariant: Color(0xFF161B22),
     onSurface: Colors.white,
-    onSurfaceVariant: Color(0xFF8b949e), //Color(0xFF9D9D9D),
+    onSurfaceVariant: Color(0xFF8b949e),
     error: Color(0xFFCD5441));

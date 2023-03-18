@@ -26,7 +26,7 @@ class AddDomain extends StatelessWidget {
               "In order to get started, please input a domain that you own"),
           const SizedBox(height: 8),
           const Paragraph(
-            "Nexæra scans this domain for all information available and you will be able to interact with it through our chat or edit it in the workshop",
+            "Nexæra scans this domain for all information available and you will be able to interact with it through our chat",
           ),
           const SizedBox(height: 24),
           CustomTextField(
