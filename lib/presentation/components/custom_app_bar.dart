@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nexaera_chat/blocs/user/user_bloc.dart';
+import 'package:nexaera_chat/presentation/components/page_header.dart';
 import 'package:nexaera_chat/presentation/constants/nav_items.dart';
 import 'package:unicons/unicons.dart';
 
@@ -11,71 +13,86 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? title;
   final List<Widget>? actions;
 
-  late ThemeData _theme;
-  late AuthProvider _auth;
-
   CustomAppBar({super.key, this.title, this.actions});
 
   @override
   Widget build(BuildContext context) {
-    _auth = context.read<AuthProvider>();
-    _theme = Theme.of(context);
+    var auth = context.read<AuthProvider>();
+    var theme = Theme.of(context);
     return Container(
-        color: _theme.colorScheme.surface,
+        color: theme.colorScheme.surface,
         height: preferredSize.height,
-        padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
+        padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
         child: Row(
           children: [
-            _logo(context),
-            const SizedBox(width: 48), //48
+            GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () => context.goNamed(NavItem.start.name),
+                child: Row(
+                  children: [
+                    // Icon(UniconsLine.tag_alt,
+                    //     size: 20, color: _theme.colorScheme.primary),
+                    // const SizedBox(width: 16),
+                    Text("NEXÆRA",
+                        style: theme.textTheme.bodyMedium!.copyWith(
+                          fontFamily: 'SpaceGrotesk',
+                          letterSpacing: 4,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20,
+                        )),
+                  ],
+                )),
+            const SizedBox(width: 32), //48
             Expanded(child: _nav(context)),
-            const SizedBox(width: 48),
-            _profile(context),
+            const SizedBox(width: 32),
+            BlocBuilder<UserBloc, UserState>(
+              builder: (context, state) {
+                if (state is UserInitial) {
+                  context.read<UserBloc>().add(GetUserDetails(auth.user!.uid));
+                }
+                return GestureDetector(
+                  onTap: () => context.goNamed(NavItem.account.name),
+                  child: Container(
+                    height: 32,
+                    width: 32,
+                    padding: EdgeInsets.all(6),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
+                        color: theme.colorScheme.surfaceVariant),
+                    child: FittedBox(
+                        child: Headline(
+                      title: state is UserLoaded
+                          ? getInitials(state.firstName, state.lastName)
+                          : '',
+                    )),
+                  ),
+                );
+              },
+            ),
           ],
         ));
   }
 
-  Widget _logo(BuildContext context) {
-    return GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        onTap: () => context.goNamed(NavItem.start.name),
-        child: Row(
-          children: [
-            // Icon(UniconsLine.tag_alt,
-            //     size: 20, color: _theme.colorScheme.primary),
-            // const SizedBox(width: 16),
-            Text("NEXÆRA",
-                style: _theme.textTheme.bodyMedium!.copyWith(
-                  fontFamily: 'SpaceGrotesk',
-                  letterSpacing: 4,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 20,
-                )),
-          ],
-        ));
+  String getInitials(String firstname, String lastname) {
+    String initials = "";
+
+    initials += firstname.isNotEmpty ? firstname[0] : '';
+    initials += lastname.isNotEmpty ? lastname[0] : '';
+
+    return initials.toUpperCase();
   }
 
   Widget _nav(BuildContext context) {
-    List<Widget> menuItems =
-        NavItem.values.map((e) => _NavigationTextItem(navItem: e)).toList();
+    List<Widget> menuItems = [
+      const _NavigationTextItem(navItem: NavItem.chat),
+      const _NavigationTextItem(navItem: NavItem.docs)
+    ];
 
-    return Wrap(spacing: 32, children: menuItems);
-  }
-
-  Widget _profile(BuildContext context) {
-    return GestureDetector(
-      onTap: () => context.goNamed('profile'),
-      child: Container(
-        height: 32,
-        width: 32,
-        decoration: BoxDecoration(
-            shape: BoxShape.circle, color: _theme.colorScheme.surfaceVariant),
-      ),
-    );
+    return Wrap(alignment: WrapAlignment.end, spacing: 32, children: menuItems);
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(64.0);
+  Size get preferredSize => const Size.fromHeight(56.0);
 }
 
 class _NavigationTextItem extends StatelessWidget {

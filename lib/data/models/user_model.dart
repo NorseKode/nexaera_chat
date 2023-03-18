@@ -3,11 +3,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class UserModel {
   String? uid;
   bool? isVerified;
-  final String? email;
+  final String email;
   final String? firstName;
   final String? lastName;
   UserModel(
-      {this.uid, this.email, this.firstName, this.lastName, this.isVerified});
+      {this.uid,
+      required this.email,
+      this.firstName,
+      this.lastName,
+      this.isVerified});
 
   Map<String, dynamic> toMap() {
     return {

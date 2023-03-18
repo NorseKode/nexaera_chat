@@ -1,4 +1,4 @@
-enum NavItem { start, workshop, chat, docs }
+enum NavItem { start, chat, docs, account }
 
 extension NavItemExtension on NavItem {
   String get displayName => displayNames[this] ?? 'Undefined';
@@ -6,15 +6,17 @@ extension NavItemExtension on NavItem {
 
   static const displayNames = {
     NavItem.start: 'Start',
-    NavItem.workshop: 'Workshop',
+    //NavItem.workshop: 'Workshop',
     NavItem.chat: 'Chat',
-    NavItem.docs: 'Docs'
+    NavItem.docs: 'Docs',
+    NavItem.account: 'Account'
   };
 
   static const routes = {
     NavItem.start: '/',
-    NavItem.workshop: '/workshop',
+    // NavItem.workshop: '/workshop',
     NavItem.chat: '/chat',
-    NavItem.docs: '/docs'
+    NavItem.docs: '/docs',
+    NavItem.account: '/account'
   };
 }

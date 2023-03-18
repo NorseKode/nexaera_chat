@@ -14,7 +14,18 @@ class AuthenticationRepository {
     return _auth.retrieveCurrentUser().asBroadcastStream();
   }
 
-  Future<UserModel> getCurrentUserDetails(String userId) async {
+  Stream<UserModel?> streamUserDetails(String userId) {
+    try {
+      return _firestoreService
+          .streamDocument('users', userId)
+          .map((doc) => UserModel.fromDocumentSnapshot(doc))
+          .asBroadcastStream();
+    } on Exception catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<UserModel> getUserDetails(String userId) async {
     try {
       print(userId);
       return await _firestoreService
@@ -28,7 +39,7 @@ class AuthenticationRepository {
   Future<void> createUserDocument(User user) async {
     //match id or email?
     await _firestoreService.createDocument('users', user.uid,
-        UserModel(email: user.email, firstName: null, lastName: null).toMap());
+        UserModel(email: user.email!, firstName: null, lastName: null).toMap());
   }
 
   Future<void> updateUserInfo(

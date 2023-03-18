@@ -11,7 +11,7 @@ import '../data/services/auth_service.dart';
 //Should be changed to a bloc
 class AuthProvider with ChangeNotifier {
   User? user;
-  AuthenticationRepository _auth;
+  final AuthenticationRepository _auth;
   StreamSubscription? userAuthSub;
 
   AuthProvider(this._auth) {
@@ -37,7 +37,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<UserModel> getCurrentUserDetails() async {
-    return await _auth.getCurrentUserDetails(user!.uid);
+    return await _auth.getUserDetails(user!.uid);
   }
 
   Future<UserCredential?> signIn(String email, String password) async {

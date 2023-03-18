@@ -78,8 +78,8 @@ class _ChatMessageBox extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          height: 32,
-          width: 32,
+          height: 40,
+          width: 40,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4),
               color: theme.colorScheme.surface),

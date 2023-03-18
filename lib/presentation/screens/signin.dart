@@ -46,7 +46,7 @@ class SignInScreen extends StatelessWidget {
                           const SizedBox(height: 8),
                           Text('Log in to your account',
                               style: theme.textTheme.headlineSmall),
-                          const SizedBox(height: 24),
+                          const SizedBox(height: 32),
                           CustomTextField(
                               hint: 'Email address',
                               controller: emailController,
@@ -60,16 +60,16 @@ class SignInScreen extends StatelessWidget {
                                 SigningIn(emailController.text,
                                     passwordController.text)),
                           ),
-                          // const SizedBox(height: 25),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.end,
-                          //   children: [
-                          //     TextButton(
-                          //         onPressed: () {},
-                          //         child: const Text("Forgot password?"))
-                          //   ],
-                          // ),
                           const SizedBox(height: 24),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              TextButton(
+                                  onPressed: () {},
+                                  child: const Text("Forgot password?"))
+                            ],
+                          ),
+                          const SizedBox(height: 32),
                           TextButton(
                             style: TextButton.styleFrom(
                                 backgroundColor: theme.primaryColor,
@@ -82,17 +82,17 @@ class SignInScreen extends StatelessWidget {
                                 style: TextStyle(
                                     color: theme.colorScheme.onPrimary)),
                           ),
-                          //const SizedBox(height: 15),
-                          // TextButton(
-                          //   style: TextButton.styleFrom(
-                          //       backgroundColor: theme.colorScheme.surface,
-                          //       padding: const EdgeInsets.all(16)),
-                          //   onPressed: () => context.go('/signup'),
-                          //   child: Text("Not registered? Sign up",
-                          //       textAlign: TextAlign.center,
-                          //       style: TextStyle(
-                          //           color: theme.colorScheme.onSurface)),
-                          // ),
+                          const SizedBox(height: 16),
+                          TextButton(
+                            style: TextButton.styleFrom(
+                                backgroundColor: theme.colorScheme.surface,
+                                padding: const EdgeInsets.all(16)),
+                            onPressed: () => context.go('/signup'),
+                            child: Text("Not registered? Sign up",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: theme.colorScheme.onSurface)),
+                          ),
                           if (state is SignInError) errorBox(state.message)
                         ],
                       ),

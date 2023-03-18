@@ -50,17 +50,17 @@ class SignUpScreen extends StatelessWidget {
                     const SizedBox(height: 8),
                     Text('Sign up with email',
                         style: theme.textTheme.headlineSmall),
-                    const SizedBox(height: 35),
+                    const SizedBox(height: 32),
                     CustomTextField(
                         hint: 'Email address',
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 16),
                     CustomTextField(
                         hint: 'Password',
                         controller: passwordController,
                         obscureText: true),
-                    const SizedBox(height: 35),
+                    const SizedBox(height: 32),
                     TextButton(
                       style: TextButton.styleFrom(
                           backgroundColor: theme.primaryColor,
@@ -70,7 +70,7 @@ class SignUpScreen extends StatelessWidget {
                           textAlign: TextAlign.center,
                           style: TextStyle(color: theme.colorScheme.onPrimary)),
                     ),
-                    const SizedBox(height: 15),
+                    const SizedBox(height: 16),
                     TextButton(
                       style: TextButton.styleFrom(
                           backgroundColor: theme.colorScheme.surface,

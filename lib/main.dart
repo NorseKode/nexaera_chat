@@ -6,6 +6,7 @@ import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:nexaera_chat/app/auth.dart';
 import 'package:nexaera_chat/blocs/domain/domain_bloc.dart';
 import 'package:nexaera_chat/blocs/upload_domain/upload_domain_bloc.dart';
+import 'package:nexaera_chat/blocs/user/user_bloc.dart';
 import 'package:nexaera_chat/data/repositories/authentication_repository.dart';
 import 'package:nexaera_chat/data/repositories/server_repository.dart';
 import 'package:nexaera_chat/data/services/auth_service.dart';
@@ -59,6 +60,7 @@ Future<void> main() async {
             BlocProvider(
                 create: (context) =>
                     ChatBloc(context.read<ServerRepository>())),
+            BlocProvider(create: (context) => UserBloc(auth))
           ], child: const MyApp()))));
 }
 

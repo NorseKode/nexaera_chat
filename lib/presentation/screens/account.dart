@@ -8,8 +8,8 @@ import '../../app/auth.dart';
 import '../components/custom_app_bar.dart';
 import '../components/custom_text_field.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+class AccountScreen extends StatelessWidget {
+  const AccountScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class ProfileScreen extends StatelessWidget {
                                   crossAxisAlignment:
                                       CrossAxisAlignment.stretch,
                                   children: [
-                                    const Headline(title: 'Profile'),
+                                    const Headline(title: 'Account'),
                                     const SizedBox(height: 32),
                                     Row(
                                       children: [
@@ -96,7 +96,7 @@ class ProfileScreen extends StatelessWidget {
                                                 .updateUserInfo(
                                                     firstnameController.text,
                                                     lastnameController.text),
-                                            child: const Text('Save profile')),
+                                            child: const Text('Save Account')),
                                         const SizedBox(height: 24),
                                         ElevatedButton(
                                             onPressed: () => context

@@ -7,7 +7,7 @@ import '../presentation/constants/documents.dart';
 import '../presentation/screens/chat.dart';
 import '../presentation/screens/docs.dart';
 import '../presentation/screens/home.dart';
-import '../presentation/screens/profile.dart';
+import '../presentation/screens/account.dart';
 import '../presentation/screens/signin.dart';
 import '../presentation/screens/signup.dart';
 import '../presentation/screens/workshop.dart';
@@ -56,11 +56,11 @@ class AppRouter {
                   document:
                       Document.values.asNameMap()[state.params['doc']]!))),
       GoRoute(
-        name: 'profile',
-        path: '/profile',
+        name: 'account',
+        path: '/account',
         pageBuilder: (context, state) => NoTransitionPage<void>(
           key: state.pageKey,
-          child: const ProfileScreen(),
+          child: const AccountScreen(),
         ),
       ),
       GoRoute(
