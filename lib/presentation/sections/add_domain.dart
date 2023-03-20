@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:unicons/unicons.dart';
@@ -21,7 +20,7 @@ class AddDomain extends StatelessWidget {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text('Add your domain', style: theme.textTheme.headlineSmall),
+          Text('Add domain', style: theme.textTheme.headlineSmall),
           const SizedBox(height: 16),
           const Paragraph(
               "In order to get started, please input a domain that you own"),

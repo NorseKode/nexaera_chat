@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nexaera_chat/blocs/chat/chat_bloc.dart';
@@ -11,6 +13,7 @@ import 'package:unicons/unicons.dart';
 import '../components/custom_app_bar.dart';
 import '../components/custom_text_field.dart';
 import '../components/error_box.dart';
+import 'package:http/http.dart' as http;
 
 class ChatScreen extends StatelessWidget {
   ChatScreen({super.key});
@@ -25,7 +28,7 @@ class ChatScreen extends StatelessWidget {
     return Scaffold(
         appBar: CustomAppBar(),
         body: Padding(
-            padding: const EdgeInsets.fromLTRB(24, 40, 24, 24),
+            padding: const EdgeInsets.fromLTRB(24, 40, 24, 40),
             child: Align(
                 alignment: Alignment.topCenter,
                 child: Container(

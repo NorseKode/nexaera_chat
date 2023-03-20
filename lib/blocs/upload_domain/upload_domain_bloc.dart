@@ -18,9 +18,9 @@ class UploadDomainBloc extends Bloc<UploadDomainEvent, UploadDomainState> {
 
       try {
         print(Uri.parse(event.domain).isAbsolute);
-        var accessToken = await _auth.user!.getIdToken();
+        var idToken = await _auth.user!.getIdToken();
         var progressStream =
-            _serverRepository.uploadDomain(event.domain, accessToken);
+            _serverRepository.uploadDomain(event.domain, idToken);
 
         await emit.forEach(
           progressStream,

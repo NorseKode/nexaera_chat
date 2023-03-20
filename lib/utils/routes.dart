@@ -10,7 +10,7 @@ import '../presentation/screens/home.dart';
 import '../presentation/screens/account.dart';
 import '../presentation/screens/signin.dart';
 import '../presentation/screens/signup.dart';
-import '../presentation/screens/workshop.dart';
+import '../presentation/screens/lab.dart';
 
 class AppRouter {
   final AuthProvider auth;
@@ -28,11 +28,11 @@ class AppRouter {
         ),
       ),
       GoRoute(
-        name: 'workshop',
-        path: '/workshop',
+        name: 'lab',
+        path: '/lab',
         pageBuilder: (context, state) => NoTransitionPage<void>(
           key: state.pageKey,
-          child: WorkshopScreen(),
+          child: LabScreen(),
         ),
       ),
       GoRoute(

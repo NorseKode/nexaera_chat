@@ -30,7 +30,7 @@ class HomeScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CustomTextButton(
-                          onPressed: () => context.goNamed('workshop'),
+                          onPressed: () => context.goNamed('lab'),
                           text: 'Add data'),
                       const SizedBox(width: 32),
                       CustomTextButton(

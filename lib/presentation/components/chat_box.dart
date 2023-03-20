@@ -94,7 +94,11 @@ class _ChatMessageBox extends StatelessWidget {
                       : Headline(title: "ML")),
             )),
         SizedBox(width: 24),
-        Expanded(child: Text(message.message)),
+        Expanded(
+            child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(message.message),
+        )),
       ],
     );
   }

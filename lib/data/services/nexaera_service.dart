@@ -2,8 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:nexaera_chat/data/models/prompt_input.dart';
-import 'package:nexaera_chat/data/models/promt_output.dart';
-import 'package:nexaera_chat/data/models/scrape_progress.dart';
 import 'package:http/http.dart' as http;
 
 class NexaeraService {
@@ -16,9 +14,9 @@ class NexaeraService {
   Future<String> createSession(String clientId) async {
     try {
       var response = await http.post(
-        Uri.parse('$basePath/session/create/'),
+        Uri.parse('$basePath/session/create'),
         headers: {'Content-Type': 'application/json'},
-        body: json.encode({'clientId': clientId}),
+        body: jsonEncode({"clientId": clientId}),
       );
       print('session response: ${response.body}');
       return json.decode(response.body)['sessionId'];
@@ -28,44 +26,43 @@ class NexaeraService {
   }
 
   //return scrapeprogress
-  Stream<ScrapeProgressModel> uploadDomain(
-      String url, String accessToken) async* {
+  Stream<dynamic> uploadDomain(String url, String idToken) async* {
     try {
-      var response = http.post(
-        Uri.parse('$basePath/upload/domain/'),
-        headers: {'Authorization': accessToken},
-        body: {'domain': url},
-      ).asStream();
+      var response = await http.post(
+        Uri.parse('$basePath/upload/domain'),
+        headers: {
+          'Content-Type': 'application/json',
+          'idToken': idToken,
+        },
+        body: jsonEncode({'domain': 'http://www.test.com/'}),
+      );
 
-      yield* response.map((progress) {
-        print('scrape progress:${progress.body}');
-        if (progress.statusCode == 200) {
-          return ScrapeProgressModel(
-              statusCode: 200,
-              message: 'Done',
-              urlInProgress: json.decode(progress.body)['domain']);
-        } else {
-          throw Exception('Failed to stream data ${progress.body}');
-        }
-      });
+      if (response.statusCode == 200) {
+        yield jsonDecode(response.body);
+      } else {
+        throw Exception('Failed to stream data ${response.body}');
+      }
     } on Exception catch (_) {
       rethrow;
     }
   }
 
   //return prompt output
-  Stream<PromptOutputModel> sendPromptMessage(PromptInputModel input) async* {
+  Stream<dynamic> sendPromptMessage(PromptInputModel input) async* {
     try {
-      final url = Uri.parse('$basePath/prompt/');
-      final response = await http.post(url,
-          headers: {'X-Session-ID': input.sessionId},
-          body: {'prompt': input.message});
+      var response = await http.post(
+        Uri.parse('$basePath/chat'),
+        headers: {
+          'Content-Type': 'application/json',
+          'x-session-id': 'serach_rows_columns_kekw'
+        },
+        body: jsonEncode({'promptInput': input.message}),
+      );
 
       if (response.statusCode == 200) {
-        final data = PromptOutputModel.fromMap(json.decode(response.body));
-        yield data;
+        yield jsonDecode(response.body);
       } else {
-        throw Exception('Failed to fetch data');
+        throw Exception('Failed to stream data ${response.body}');
       }
     } on Exception catch (_) {
       rethrow;

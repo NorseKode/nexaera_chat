@@ -30,9 +30,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 onTap: () => context.goNamed(NavItem.start.name),
                 child: Row(
                   children: [
-                    // Icon(UniconsLine.tag_alt,
-                    //     size: 20, color: _theme.colorScheme.primary),
-                    // const SizedBox(width: 16),
                     Text("NEXÆRA",
                         style: theme.textTheme.bodyMedium!.copyWith(
                           fontFamily: 'SpaceGrotesk',
@@ -85,7 +82,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget _nav(BuildContext context) {
     List<Widget> menuItems = [
       const _NavigationTextItem(navItem: NavItem.chat),
-      const _NavigationTextItem(navItem: NavItem.docs)
+      const _NavigationTextItem(navItem: NavItem.lab),
+      const _NavigationTextItem(navItem: NavItem.docs),
     ];
 
     return Wrap(alignment: WrapAlignment.end, spacing: 32, children: menuItems);

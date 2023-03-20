@@ -17,11 +17,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   ChatBloc(this._serverRepository) : super(const ChatInitial([])) {
     on<CreateChatSession>((event, emit) async {
       var messages = state.chatMessages.toList();
-      messages.addAll([
-        ChatModel(ChatRole.user,
-            'HelloddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE'),
-        ChatModel(ChatRole.chatbot, 'Tho'),
-      ]);
+
       emit(ChatLoading(messages));
       try {
         sessionId = await _serverRepository.createSession(event.domain);
@@ -57,7 +53,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
         emit(ChatIdle(messages));
       } catch (e) {
-        messages.add(ChatModel(ChatRole.chatbot, 'Something went wrong: $e'));
+        messages.add(ChatModel(ChatRole.chatbot, 'Something went wrong'));
         emit(ChatError(messages, e.toString()));
       }
     });
