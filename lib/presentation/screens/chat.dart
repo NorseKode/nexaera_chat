@@ -8,8 +8,10 @@ import 'package:nexaera_chat/data/repositories/server_repository.dart';
 import 'package:nexaera_chat/presentation/components/chat_box.dart';
 import 'package:nexaera_chat/presentation/components/page_header.dart';
 import 'package:nexaera_chat/presentation/constants/chat_roles.dart';
+import 'package:nexaera_chat/utils/get_initials.dart';
 import 'package:unicons/unicons.dart';
 
+import '../../blocs/user/user_bloc.dart';
 import '../components/custom_app_bar.dart';
 import '../components/custom_text_field.dart';
 import '../components/error_box.dart';
@@ -25,6 +27,7 @@ class ChatScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var domain = 'http://www.test.com/';
     _theme = Theme.of(context);
+
     return Scaffold(
         appBar: CustomAppBar(),
         body: Padding(
@@ -51,7 +54,24 @@ class ChatScreen extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
-                                  ChatBox(messages: state.chatMessages),
+                                  BlocBuilder<UserBloc, UserState>(
+                                    builder: (context, user) {
+                                      if (user is UserLoaded) {
+                                        return ChatBox(
+                                            userLogo: Headline(
+                                                title: getInitials(
+                                                    user.firstName,
+                                                    user.lastName)),
+                                            messages: state is ChatWriting
+                                                ? [
+                                                    ChatModel(ChatRole.chatbot,
+                                                        state.message)
+                                                  ]
+                                                : []);
+                                      }
+                                      return Container();
+                                    },
+                                  ),
                                   state is ChatLoading
                                       ? const LinearProgressIndicator()
                                       : Container(),

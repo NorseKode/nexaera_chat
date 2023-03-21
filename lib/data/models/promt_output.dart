@@ -5,7 +5,7 @@ class PromptOutputModel {
   String promtOutput;
   Map<String, String> sources;
   Map<String, int> tokenUsage;
-  PromptFinishReason finishReason;
+  PromptFinishReason? finishReason;
   Map<String, dynamic> status;
 
   PromptOutputModel(

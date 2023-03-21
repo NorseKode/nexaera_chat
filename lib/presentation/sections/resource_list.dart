@@ -4,24 +4,17 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:unicons/unicons.dart';
 import 'package:intl/intl.dart';
 
-class ContextManagement extends StatelessWidget {
-  const ContextManagement({super.key});
+class ResourceList extends StatelessWidget {
+  const ResourceList({super.key, required this.resources});
+
+  final List<Resource> resources;
 
   @override
   Widget build(BuildContext context) {
-    List<_Resource> resources = [
-      _Resource('title', DateTime.now(), _ResourceStatus.inChatContext),
-      _Resource('title', DateTime.now(), _ResourceStatus.notInChatContext),
-      _Resource('title', DateTime.now(), _ResourceStatus.notInChatContext),
-      _Resource('title', DateTime.now(), _ResourceStatus.notInChatContext),
-      _Resource('title', DateTime.now(), _ResourceStatus.loading),
-      _Resource('title', DateTime.now(), _ResourceStatus.inChatContext),
-      _Resource('title', DateTime.now(), _ResourceStatus.inChatContext),
-    ];
-
     var theme = Theme.of(context);
     var headerStyle = theme.textTheme.labelLarge!
         .apply(color: theme.colorScheme.onSurfaceVariant);
+    var contentStyle = theme.textTheme.bodyMedium!;
 
     return Table(children: [
       TableRow(
@@ -37,11 +30,33 @@ class ContextManagement extends StatelessWidget {
       ...List.generate(
           resources.length,
           (index) => TableRow(children: [
-                CustomTableCell(resources[index].title),
-                CustomTableCell(resources[index].dateTime.toString()),
-                CustomTableCell(resources[index].status.name)
+                CustomTableCell(
+                  resources[index].title,
+                  style: contentStyle,
+                ),
+                CustomTableCell(
+                  resources[index].dateTime.toString(),
+                  style: contentStyle,
+                ),
+                CustomTableCell(
+                  status(resources[index].status),
+                  style: contentStyle,
+                )
               ]))
     ]);
+  }
+
+  String status(ResourceStatus status) {
+    switch (status) {
+      case ResourceStatus.inChatContext:
+        return 'Ready';
+      case ResourceStatus.notInChatContext:
+        return 'Not in context';
+      case ResourceStatus.loading:
+        return 'Loading...';
+      default:
+        return 'Unknown';
+    }
   }
 }
 
@@ -63,12 +78,12 @@ class CustomTableCell extends StatelessWidget {
   }
 }
 
-class _Resource {
+class Resource {
   final String title;
   final DateTime _dateTime;
-  final _ResourceStatus status;
+  final ResourceStatus status;
 
-  _Resource(
+  Resource(
     this.title,
     this._dateTime,
     this.status,
@@ -77,4 +92,4 @@ class _Resource {
   String get dateTime => DateFormat('d MMM, H:m').format(_dateTime);
 }
 
-enum _ResourceStatus { loading, inChatContext, notInChatContext }
+enum ResourceStatus { loading, inChatContext, notInChatContext }

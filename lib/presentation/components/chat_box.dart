@@ -10,9 +10,10 @@ import '../constants/chat_roles.dart';
 import 'page_header.dart';
 
 class ChatBox extends StatelessWidget {
-  const ChatBox({super.key, required this.messages});
+  const ChatBox({super.key, required this.messages, required this.userLogo});
 
   final List<ChatModel> messages;
+  final Widget userLogo;
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +21,18 @@ class ChatBox extends StatelessWidget {
     return Expanded(
       child: Stack(fit: StackFit.expand, children: [
         ListView.separated(
-            padding: EdgeInsets.symmetric(vertical: 24),
+            //padding: EdgeInsets.symmetric(vertical: 24),
             scrollDirection: Axis.vertical,
             // reverse: true,
-            itemBuilder: (context, index) =>
-                _ChatMessageBox(message: messages[index]),
+            itemBuilder: (context, index) => _ChatMessageBox(
+                  message: messages[index],
+                  logo: messages[index].role == ChatRole.chatbot
+                      ? Headline(title: 'NÆ', color: theme.colorScheme.surface)
+                      : userLogo,
+                ),
             separatorBuilder: (context, index) => Divider(
                   indent: 60,
+                  thickness: 2,
                   height: 40,
                   color: theme.colorScheme.surface,
                 ),
@@ -61,16 +67,10 @@ class ChatBox extends StatelessWidget {
 }
 
 class _ChatMessageBox extends StatelessWidget {
-  const _ChatMessageBox({super.key, required this.message});
+  const _ChatMessageBox({super.key, required this.message, required this.logo});
 
   final ChatModel message;
-
-  Widget _logo() {
-    String assetName = 'assets/chatbot_logo_dark.svg';
-    return SvgPicture.asset(
-      assetName,
-    );
-  }
+  final Widget logo;
 
   @override
   Widget build(BuildContext context) {
@@ -88,10 +88,7 @@ class _ChatMessageBox extends StatelessWidget {
                     : theme.colorScheme.surface),
             child: Padding(
               padding: EdgeInsets.all(8),
-              child: FittedBox(
-                  child: message.role == ChatRole.chatbot
-                      ? Headline(title: "NÆ", color: theme.colorScheme.surface)
-                      : Headline(title: "ML")),
+              child: FittedBox(child: logo),
             )),
         SizedBox(width: 24),
         Expanded(

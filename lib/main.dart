@@ -8,9 +8,11 @@ import 'package:nexaera_chat/blocs/domain/domain_bloc.dart';
 import 'package:nexaera_chat/blocs/upload_domain/upload_domain_bloc.dart';
 import 'package:nexaera_chat/blocs/user/user_bloc.dart';
 import 'package:nexaera_chat/data/repositories/authentication_repository.dart';
+import 'package:nexaera_chat/data/repositories/chat_repository.dart';
 import 'package:nexaera_chat/data/repositories/server_repository.dart';
 import 'package:nexaera_chat/data/services/auth_service.dart';
 import 'package:nexaera_chat/data/services/firestore_service.dart';
+import 'package:nexaera_chat/data/services/websocket_service.dart';
 import 'package:nexaera_chat/utils/routes.dart';
 import 'package:provider/provider.dart';
 import 'blocs/chat/chat_bloc.dart';
@@ -33,6 +35,8 @@ Future<void> main() async {
   var authService = AuthenticationService();
   var firestore = FirestoreService();
   var auth = AuthenticationRepository(authService, firestore);
+  var websocket = WebSocketService('');
+
   runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider<AuthProvider>(
@@ -46,7 +50,8 @@ Future<void> main() async {
             RepositoryProvider(
                 create: (context) =>
                     DomainRepository(context.read<AuthProvider>())),
-            RepositoryProvider(create: (context) => ServerRepository())
+            RepositoryProvider(create: (context) => ServerRepository()),
+            RepositoryProvider(create: (context) => ChatRepository(websocket)),
           ],
           child: MultiBlocProvider(providers: [
             BlocProvider(
@@ -58,27 +63,8 @@ Future<void> main() async {
                     context.read<AuthProvider>(),
                     context.read<DomainRepository>())),
             BlocProvider(
-                create: (context) =>
-                    ChatBloc(context.read<ServerRepository>())),
+                create: (context) => ChatBloc(context.read<ServerRepository>(),
+                    context.read<ChatRepository>())),
             BlocProvider(create: (context) => UserBloc(auth))
           ], child: const MyApp()))));
 }
-
-// final providerList = [
-//   ChangeNotifierProvider<AuthProvider>(create: (context) => AuthProvider()),
-//   ProxyProvider<AuthProvider, AppRouter>(
-//       update: (context, auth, previous) => previous ?? AppRouter(auth)),
-// ];
-
-// List<RepositoryProvider> repositoryList = [
-//   RepositoryProvider(create: (context) => DomainRepository()),
-//   RepositoryProvider(create: (context) => NexaeraRepository())
-// ];
-
-// List<BlocProvider> blocList = [
-//   BlocProvider(
-//       create: (context) => DomainBloc(context.read<DomainRepository>())),
-//   BlocProvider(
-//       create: (context) => UploadDomainBloc(
-//           context.read<NexaeraRepository>(), context.read<AuthProvider>())),
-// ];

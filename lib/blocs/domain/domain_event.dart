@@ -8,8 +8,3 @@ abstract class DomainEvent extends Equatable {
 }
 
 class FetchDomainList extends DomainEvent {}
-
-class DomainSelected extends DomainEvent {
-  final String selectedDomainId;
-  const DomainSelected(this.selectedDomainId);
-}

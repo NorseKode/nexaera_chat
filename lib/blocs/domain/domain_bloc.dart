@@ -13,11 +13,7 @@ class DomainBloc extends Bloc<DomainEvent, DomainState> {
     on<FetchDomainList>((event, emit) async {
       await emit.forEach(_domainRepository.streamDomains(),
           onData: (List<DomainModel> domainList) =>
-              DomainListLoaded(domainList, state.selectedDomain));
-    });
-
-    on<DomainSelected>((event, emit) async {
-      emit(DomainListLoaded(state.domainList, event.selectedDomainId));
+              DomainListLoaded(domainList));
     });
   }
 }

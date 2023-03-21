@@ -19,6 +19,7 @@ dependencies:
   go_router: ^6.2.0
   http: ^0.13.5
   unicons: ^2.1.0
+  web_socket_channel: ^2.3.0
 
 dev_dependencies:
   flutter_test:

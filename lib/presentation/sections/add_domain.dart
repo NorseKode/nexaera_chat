@@ -14,9 +14,6 @@ class AddDomain extends StatelessWidget {
     var theme = Theme.of(context);
     return BlocBuilder<UploadDomainBloc, UploadDomainState>(
         builder: (context, state) {
-      if (state is UploadDone) {
-        return const Text("Upload completed");
-      }
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
