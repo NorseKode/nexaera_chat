@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:nexaera_chat/data/models/prompt_input.dart';
 import 'package:http/http.dart' as http;
 
 class NexaeraService {
@@ -35,28 +34,6 @@ class NexaeraService {
           'idToken': idToken,
         },
         body: jsonEncode({'domain': 'http://www.test.com/'}),
-      );
-
-      if (response.statusCode == 200) {
-        yield jsonDecode(response.body);
-      } else {
-        throw Exception('Failed to stream data ${response.body}');
-      }
-    } on Exception catch (_) {
-      rethrow;
-    }
-  }
-
-  //return prompt output
-  Stream<dynamic> sendPromptMessage(PromptInputModel input) async* {
-    try {
-      var response = await http.post(
-        Uri.parse('$basePath/chat'),
-        headers: {
-          'Content-Type': 'application/json',
-          'x-session-id': 'serach_rows_columns_kekw'
-        },
-        body: jsonEncode({'promptInput': input.message}),
       );
 
       if (response.statusCode == 200) {

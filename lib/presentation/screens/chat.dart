@@ -27,11 +27,12 @@ class ChatScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var domain = 'http://www.test.com/';
     _theme = Theme.of(context);
+    var controller = ScrollController();
 
     return Scaffold(
         appBar: CustomAppBar(),
         body: Padding(
-            padding: const EdgeInsets.fromLTRB(24, 40, 24, 40),
+            padding: const EdgeInsets.fromLTRB(24, 0, 24, 40),
             child: Align(
                 alignment: Alignment.topCenter,
                 child: Container(
@@ -40,8 +41,8 @@ class ChatScreen extends StatelessWidget {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Headline(title: 'Chat'),
-                          const SizedBox(height: 32),
+                          // const Headline(title: 'Chat'),
+                          // const SizedBox(height: 32),
                           BlocBuilder<ChatBloc, ChatState>(
                               builder: (context, state) {
                             if (state is ChatInitial) {
@@ -49,6 +50,7 @@ class ChatScreen extends StatelessWidget {
                                   .read<ChatBloc>()
                                   .add(CreateChatSession(domain));
                             }
+
                             return Expanded(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.end,
@@ -58,28 +60,28 @@ class ChatScreen extends StatelessWidget {
                                     builder: (context, user) {
                                       if (user is UserLoaded) {
                                         return ChatBox(
+                                            controller: controller,
                                             userLogo: Headline(
                                                 title: getInitials(
                                                     user.firstName,
                                                     user.lastName)),
                                             messages: state is ChatWriting
-                                                ? [
-                                                    ChatModel(ChatRole.chatbot,
-                                                        state.message)
-                                                  ]
-                                                : []);
+                                                ? (List.from(state.messages)
+                                                  ..add(ChatModel(
+                                                      ChatRole.chatbot,
+                                                      state.message)))
+                                                : state.messages);
                                       }
                                       return Container();
                                     },
                                   ),
+                                  SizedBox(height: 1),
                                   state is ChatLoading
                                       ? const LinearProgressIndicator()
                                       : Container(),
                                   CustomTextField(
                                     readOnly: state is! ChatIdle,
-                                    hint: state is ChatError
-                                        ? state.errorMessage
-                                        : 'Ask me anything...',
+                                    hint: _getChatHint(state),
                                     suffixIcon: UniconsLine.message,
                                     controller: chatController,
                                     onSubmitted: (message) {
@@ -96,5 +98,14 @@ class ChatScreen extends StatelessWidget {
                             );
                           })
                         ])))));
+  }
+
+  String _getChatHint(ChatState state) {
+    switch (state.runtimeType) {
+      case ChatError:
+        return (state as ChatError).errorMessage;
+      default:
+        return 'Ask me anything...';
+    }
   }
 }

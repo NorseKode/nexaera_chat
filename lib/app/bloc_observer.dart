@@ -16,9 +16,9 @@ class MyBlocObserver extends BlocObserver {
 
   @override
   void onTransition(Bloc bloc, Transition transition) {
-    String current = transition.currentState.toString();
+    String current = transition.currentState.runtimeType.toString();
     String event = transition.event.toString();
-    String next = transition.nextState.toString();
+    String next = transition.nextState.runtimeType.toString();
     debugPrint("${bloc.runtimeType}: \n\tcurrent: $current\n\tevent: $event\n"
         "\tnext: "
         "$next");
