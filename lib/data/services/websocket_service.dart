@@ -7,9 +7,9 @@ class WebSocketService {
 
   WebSocketService(this.url);
 
-  Future<void> connect(String sessionId) async {
+  Future<void> connect(String clientId, String sessionId) async {
     _channel = WebSocketChannel.connect(Uri.parse(
-        'ws://nexaera.up.railway.app/chat/ws?x_session_id=$sessionId'));
+        'ws://nexaera.up.railway.app/chat/ws?client_id=$clientId&x_session_id=$sessionId'));
   }
 
   Future<void> disconnect() async {

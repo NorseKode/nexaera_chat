@@ -11,8 +11,8 @@ class ChatRepository {
 
   ChatRepository(this.webSocketService);
 
-  Future<void> connect(String sessionId) async {
-    await webSocketService.connect(sessionId);
+  Future<void> connect(String clientId, String sessionId) async {
+    await webSocketService.connect(clientId, sessionId);
   }
 
   Future<void> disconnect() async {

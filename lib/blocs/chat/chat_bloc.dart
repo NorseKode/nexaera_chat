@@ -23,9 +23,10 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       emit(ChatLoading(state.messages));
 
       try {
-        sessionId = await _serverRepository.createSession(event.domain);
+        var clientId = 'Gei6wuoR1hZXfCL4u21kvo88Nsv1';
+        sessionId = await _serverRepository.createSession(clientId);
         //Should be changes to sessionId instead of hardcoded.
-        await _chatRepository.connect('serach_rows_columns_kekw');
+        await _chatRepository.connect(clientId, 'u0Eq3EIbbxUuoIkbHy4T');
         _chatStream = _chatRepository.receive();
         emit(ChatIdle(state.messages));
       } catch (e) {
