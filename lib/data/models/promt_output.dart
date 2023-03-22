@@ -1,16 +1,14 @@
 import '../../presentation/constants/promt_finish_reason.dart';
 
 class PromptOutputModel {
-  String sessionId;
-  String promtOutput;
+  String promptOutput;
   Map<String, String> sources;
   Map<String, int> tokenUsage;
   PromptFinishReason? finishReason;
-  Map<String, dynamic> status;
+  Map<String, String> status;
 
   PromptOutputModel(
-      {required this.sessionId,
-      required this.promtOutput,
+      {required this.promptOutput,
       required this.sources,
       required this.tokenUsage,
       required this.finishReason,
@@ -18,8 +16,7 @@ class PromptOutputModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'sessionId': sessionId,
-      'PromtOutput': promtOutput,
+      'promptOutput': promptOutput,
       'sources': sources,
       'tokenUsage': tokenUsage,
       'finishReason': finishReason,
@@ -28,8 +25,7 @@ class PromptOutputModel {
   }
 
   PromptOutputModel.fromMap(Map<String, dynamic> map)
-      : sessionId = map['sessionId'],
-        promtOutput = map['PromtOutput'],
+      : promptOutput = map['promptOutput'],
         sources = map['sources'],
         tokenUsage = map['tokenUsage'],
         finishReason = map['finishReason'],

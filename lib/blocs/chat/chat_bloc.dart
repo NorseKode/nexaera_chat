@@ -45,7 +45,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           await emit.forEach(
             _chatRepository.receive(),
             onData: (PromptOutputModel output) {
-              message += output.promtOutput;
+              message += output.promptOutput;
               if (output.finishReason == null) {
                 print('writing ' + message);
                 return ChatWriting(message);

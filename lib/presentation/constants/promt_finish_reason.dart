@@ -1,1 +1,1 @@
-enum PromptFinishReason { stop, length, contentFilter, stillInProgress }
+enum PromptFinishReason { stop, length, contentFilter }

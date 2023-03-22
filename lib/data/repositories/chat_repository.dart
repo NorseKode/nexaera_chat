@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:nexaera_chat/data/models/promt_output.dart';
+import 'package:nexaera_chat/presentation/constants/promt_finish_reason.dart';
 
 import '../services/websocket_service.dart';
 
@@ -24,8 +26,13 @@ class ChatRepository {
   Stream<PromptOutputModel> receive() {
     try {
       return webSocketService.receive().map((event) {
-        print('test2');
-        return PromptOutputModel.fromMap(event);
+        return PromptOutputModel(
+            promptOutput: event['promptOutput'],
+            sources: Map.from(event['sources']),
+            tokenUsage: Map.from(event['tokenUsage']),
+            finishReason:
+                PromptFinishReason.values.asNameMap()[event['finishReason']],
+            status: Map.from(event['status']));
       }).asBroadcastStream();
     } on Exception catch (_) {
       rethrow;

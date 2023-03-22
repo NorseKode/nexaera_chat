@@ -23,7 +23,6 @@ class WebSocketService {
 
   Stream<dynamic> receive() {
     return _channel?.stream.map((event) {
-          print(event.toString());
           return jsonDecode(event);
         }) ??
         const Stream.empty();
