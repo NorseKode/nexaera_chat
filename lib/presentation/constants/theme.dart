@@ -20,6 +20,8 @@ class AppThemeData {
       snackBarTheme: SnackBarThemeData(
           backgroundColor: darkColorScheme.primary,
           contentTextStyle: TextStyle(color: darkColorScheme.onPrimary)),
+      cardColor: darkColorScheme.surface,
+      canvasColor: darkColorScheme.surface,
       appBarTheme: AppBarTheme(backgroundColor: darkColorScheme.background),
     ),
   };

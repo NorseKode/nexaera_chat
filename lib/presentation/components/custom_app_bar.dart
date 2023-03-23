@@ -14,14 +14,22 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? title;
   final List<Widget>? actions;
 
+  late ThemeData _theme;
+
+  final List<NavItem> menuItems = [
+    NavItem.chat,
+    NavItem.lab,
+    NavItem.docs,
+  ];
+
   CustomAppBar({super.key, this.title, this.actions});
 
   @override
   Widget build(BuildContext context) {
     var auth = context.read<AuthProvider>();
-    var theme = Theme.of(context);
+    _theme = Theme.of(context);
     return Container(
-        color: theme.colorScheme.surface,
+        color: _theme.colorScheme.surface,
         height: preferredSize.height,
         padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
         child: Row(
@@ -32,7 +40,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 child: Row(
                   children: [
                     Text("NEXÆRA",
-                        style: theme.textTheme.bodyMedium!.copyWith(
+                        style: _theme.textTheme.bodyMedium!.copyWith(
                           fontFamily: 'SpaceGrotesk',
                           letterSpacing: 4,
                           fontWeight: FontWeight.w600,
@@ -41,7 +49,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   ],
                 )),
             const SizedBox(width: 32), //48
-            Expanded(child: _nav(context)),
+            Expanded(
+                child: MediaQuery.of(context).size.width <= 500
+                    ? _buttonNav(context)
+                    : _rowNav(context)),
             const SizedBox(width: 32),
             BlocBuilder<UserBloc, UserState>(
               builder: (context, state) {
@@ -56,7 +67,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     padding: EdgeInsets.all(6),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(4),
-                        color: theme.colorScheme.surfaceVariant),
+                        color: _theme.colorScheme.surfaceVariant),
                     child: FittedBox(
                         child: Headline(
                       title: state is UserLoaded
@@ -71,14 +82,45 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         ));
   }
 
-  Widget _nav(BuildContext context) {
-    List<Widget> menuItems = [
-      const _NavigationTextItem(navItem: NavItem.chat),
-      const _NavigationTextItem(navItem: NavItem.lab),
-      const _NavigationTextItem(navItem: NavItem.docs),
-    ];
+  Widget _buttonNav(BuildContext context) {
+    return Row(
+      children: [
+        Spacer(),
+        PopupMenuButton<NavItem>(
+          position: PopupMenuPosition.under,
+          offset: Offset(0, 16),
+          elevation: 0,
+          tooltip: '',
+          splashRadius: 1,
+          onSelected: (navItem) => context.go(navItem.route),
+          itemBuilder: (context) => menuItems
+              .map((navItem) => PopupMenuItem(
+                    height: kMinInteractiveDimension - 8,
+                    value: navItem,
+                    child: _NavigationTextItem(navItem: navItem),
+                  ))
+              .toList(),
+          child: Container(
+            height: 32,
+            width: 32,
+            padding: EdgeInsets.all(6),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4),
+                color: _theme.colorScheme.surfaceVariant),
+            child: FittedBox(child: Icon(UniconsLine.bars)),
+          ),
+        ),
+      ],
+    );
+  }
 
-    return Wrap(alignment: WrapAlignment.end, spacing: 32, children: menuItems);
+  Widget _rowNav(BuildContext context) {
+    return Wrap(
+        alignment: WrapAlignment.end,
+        spacing: 32,
+        children: menuItems
+            .map((navItem) => _NavigationTextItem(navItem: navItem))
+            .toList());
   }
 
   @override
