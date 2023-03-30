@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 
 import '../../data/models/chat_model.dart';
@@ -41,7 +40,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         ..add(ChatModel(ChatRole.user, event.message));
       emit(ChatLoading(messages));
 
-      //Save message in firebase before
       await _chatRepository.send({'promptInput': event.message});
 
       var message = '';

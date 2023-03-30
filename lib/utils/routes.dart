@@ -6,6 +6,7 @@ import '../app/auth.dart';
 import '../presentation/constants/documents.dart';
 import '../presentation/screens/chat.dart';
 import '../presentation/screens/docs.dart';
+import '../presentation/screens/error.dart';
 import '../presentation/screens/home.dart';
 import '../presentation/screens/account.dart';
 import '../presentation/screens/signin.dart';
@@ -96,5 +97,8 @@ class AppRouter {
 
     //refresh on changes to loginInfo
     refreshListenable: auth,
+
+    errorPageBuilder: (context, state) =>
+        NoTransitionPage<void>(key: state.pageKey, child: const ErrorScreen()),
   );
 }
